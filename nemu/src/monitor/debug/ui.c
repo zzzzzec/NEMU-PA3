@@ -73,7 +73,7 @@ static int cmd_x(char *args) {
 					printf("0x%08x: ", addr);
 				}
 
-				printf("0x%08x ", swaddr_read(addr, 4));
+				printf("0x%08x ", swaddr_read(addr, 10));
 				addr += 4;
 				if(i % 4 == 3) {
 					printf("\n");

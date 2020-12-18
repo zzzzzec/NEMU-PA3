@@ -14,17 +14,18 @@ typedef struct
      uint8_t  data[BLOCK_SIZE];
 }Cache;
 Cache L1[SET_SIZE][LINE_SZIE];  /*cache1 1024            */
+
 void init_cache(){
-	int i,j;
-	for ( i = 0; i < SET_SIZE-1; i++)
+	/*int i,j;
+	for ( i = 0; i < SET_SIZE; i++)
 	{
-		for ( j = 0; i < LINE_SZIE-1; j++)
+		for ( j = 0; i < LINE_SZIE; j++)
 		{
 			 //L1[i][j].valid = false;
 			 L1[i][j].tag = 0;
 		     //memset (L1[i][j].data ,0 ,BLOCK_SIZE);
 		}   
-	}
+	}*/
 }
 
 bool check_cache(hwaddr_t addr){
