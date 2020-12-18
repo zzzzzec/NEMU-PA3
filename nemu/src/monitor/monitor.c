@@ -90,5 +90,5 @@ void restart() {
 
 	/* Initialize DRAM. */
 	init_ddr3();
-	init_cache();
+	//init_cache();
 }
