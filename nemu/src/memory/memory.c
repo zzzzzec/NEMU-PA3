@@ -5,7 +5,7 @@
 #define SET_SIZE 8                            //8-way set associate
 #define LINE_SZIE 1024/8 
 
-/*cache line :   ******19*******|| ****7****||****6****
+/*cache line :   ******21*******|| ****7****||****4****
                                                tag                    index          offset   */
 typedef struct 
 {
@@ -14,7 +14,6 @@ typedef struct
      uint8_t  data[BLOCK_SIZE];
 }Cache;
 Cache L1[SET_SIZE][LINE_SZIE];  /*cache1 1024            */
-
 void init_cache(){
 	int i,j;
 	for ( i = 0; i < SET_SIZE; i++)
@@ -22,11 +21,27 @@ void init_cache(){
 		for ( j = 0; i < LINE_SZIE; j++)
 		{
 			 L1[i][j].valid = false;
+			 L1[i][j].tag = 0;
 		     memset (L1[i][j].data ,0 ,BLOCK_SIZE);
 		}   
 	}
 }
 
+bool check_cache(hwaddr_t addr){
+	bool find = false;
+    uint32_t ttag,index,offset;
+	 offset = (addr & 0xf) * 4;
+	 index = ((addr >> 4) & 0x7f);
+	 ttag = addr >> 11;
+     int i;
+	 for ( i = 0; i < SET_SIZE; i++)
+	 {
+		 if((L1[i][index].valid == true)&&(L1[i][index].tag == ttag)){
+			 find = true;
+		 }
+	 }
+	 return find;
+}
 /*uint32_t cache_read(hwaddr_t ,size_t){
   
 }*/
@@ -38,7 +53,14 @@ void dram_write(hwaddr_t, size_t, uint32_t);
 uint32_t hwaddr_read(hwaddr_t addr, size_t len) {
 	/* 0u : 0000 0000 0000 0000
 	 ~0u : 1111 1111 1111 1111   */
-	return dram_read(addr, len) & (~0u >> ((4 - len) << 3));
+	 bool check =false;
+	 check = check_cache(addr);
+     if(check){
+        return 0;
+	 }
+	  else{
+		  return dram_read(addr, len) & (~0u >> ((4 - len) << 3));
+	  }
 }
 
 void hwaddr_write(hwaddr_t addr, size_t len, uint32_t data) {
