@@ -22,7 +22,7 @@ void init_cache(){
 		{
 			 L1[i][j].valid = false;
 			 L1[i][j].tag = 0;
-		     memset (L1[i][j].data ,0 ,BLOCK_SIZE);
+		     //memset (L1[i][j].data ,0 ,BLOCK_SIZE);
 		}   
 	}
 }
