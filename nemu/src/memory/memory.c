@@ -18,12 +18,18 @@ void init_cache(){
 		memset (L1[i].data ,0 ,BLOCK_SIZE);
 	}
 }
+
+/*uint32_t cache_read(hwaddr_t ,size_t){
+  
+}*/
 uint32_t dram_read(hwaddr_t, size_t);
 void dram_write(hwaddr_t, size_t, uint32_t);
 
 /* Memory accessing interfaces */
 
 uint32_t hwaddr_read(hwaddr_t addr, size_t len) {
+	/* 0u : 0000 0000 0000 0000
+	 ~0u : 1111 1111 1111 1111   */
 	return dram_read(addr, len) & (~0u >> ((4 - len) << 3));
 }
 

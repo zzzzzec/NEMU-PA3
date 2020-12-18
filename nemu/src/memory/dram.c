@@ -24,14 +24,14 @@ typedef union {
 } dram_addr;
 
 
-#define NR_COL (1 << COL_WIDTH)
+#define NR_COL (1 << COL_WIDTH) /*column*/
 #define NR_ROW (1 << ROW_WIDTH)
 #define NR_BANK (1 << BANK_WIDTH)
 #define NR_RANK (1 << RANK_WIDTH)
 
-#define HW_MEM_SIZE (1 << (COL_WIDTH + ROW_WIDTH + BANK_WIDTH + RANK_WIDTH))
+#define HW_MEM_SIZE (1 << (COL_WIDTH + ROW_WIDTH + BANK_WIDTH + RANK_WIDTH)) /*2^27*/
 
-uint8_t dram[NR_RANK][NR_BANK][NR_ROW][NR_COL];
+uint8_t dram[NR_RANK][NR_BANK][NR_ROW][NR_COL]; /*128mb* 4 3 10 10*/
 uint8_t *hw_mem = (void *)dram;
 
 typedef struct {
@@ -40,7 +40,7 @@ typedef struct {
 	bool valid;
 } RB;
 
-RB rowbufs[NR_RANK][NR_BANK];
+RB rowbufs[NR_RANK][NR_BANK]; /*rowbufs for every bank*/
 
 void init_ddr3() {
 	int i, j;
@@ -69,6 +69,8 @@ static void ddr3_read(hwaddr_t addr, void *data) {
 	}
 
 	/* burst read */
+	/*rowbufs[rank][bank].buf + col is an addr*/
+	/*only copy 8byte*/
 	memcpy(data, rowbufs[rank][bank].buf + col, BURST_LEN);
 }
 
@@ -97,7 +99,7 @@ static void ddr3_write(hwaddr_t addr, void *data, uint8_t *mask) {
 }
 
 uint32_t dram_read(hwaddr_t addr, size_t len) {
-	uint32_t offset = addr & BURST_MASK;
+	uint32_t offset = addr & BURST_MASK;   /*get last 4 bit from addr*/
 	uint8_t temp[2 * BURST_LEN];
 	
 	ddr3_read(addr, temp);
