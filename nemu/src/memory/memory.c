@@ -20,7 +20,7 @@ void init_cache(){
 	{
 		for ( j = 0; i < LINE_SZIE; j++)
 		{
-			 L1[i][j].valid = false;
+			 //L1[i][j].valid = false;
 			// L1[i][j].tag = 0;
 		     //memset (L1[i][j].data ,0 ,BLOCK_SIZE);
 		}   
