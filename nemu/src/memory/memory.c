@@ -53,14 +53,12 @@ void dram_write(hwaddr_t, size_t, uint32_t);
 uint32_t hwaddr_read(hwaddr_t addr, size_t len) {
 	/* 0u : 0000 0000 0000 0000
 	 ~0u : 1111 1111 1111 1111   */
-	 bool check =false;
+	 /*bool check =false;
 	 check = check_cache(addr);
      if(check){
         return 0;
-	 }
-	  else{
+	 }*/
 		  return dram_read(addr, len) & (~0u >> ((4 - len) << 3));
-	  }
 }
 
 void hwaddr_write(hwaddr_t addr, size_t len, uint32_t data) {
