@@ -15,7 +15,8 @@ typedef struct
 }Cache;
 Cache L1[SET_SIZE][LINE_SZIE];  /*cache1 1024            */
 void init_cache(){
-	int i,j;
+	L1[7][127].tag = 0;
+	/*int i,j;
 	for ( i = 0; i < SET_SIZE; i++)
 	{
 		for ( j = 0; i < LINE_SZIE; j++)
@@ -24,7 +25,7 @@ void init_cache(){
 			 L1[i][j].tag = 0;
 		     //memset (L1[i][j].data ,0 ,BLOCK_SIZE);
 		}   
-	}
+	}*/
 }
 
 bool check_cache(hwaddr_t addr){
