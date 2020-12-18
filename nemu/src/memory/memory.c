@@ -2,20 +2,28 @@
 //define some attributes
 #define BLOCK_SIZE 64 //8byte
 #define L1_SIZE  64*1024
+#define SET_SIZE 8                            //8-way set associate
+#define LINE_SZIE 1024/8 
 
+/*cache line :   ******19*******|| ****7****||****6****
+                                               tag                    index          offset   */
 typedef struct 
 {
 	bool valid;
+	 uint32_t tag;
      uint8_t  data[BLOCK_SIZE];
 }Cache;
-Cache L1[L1_SIZE/BLOCK_SIZE];  /*cache1 1024            */
+Cache L1[SET_SIZE][LINE_SZIE];  /*cache1 1024            */
 
 void init_cache(){
-	int i;
-	for ( i = 0; i < L1_SIZE/BLOCK_SIZE; i++)
+	int i,j;
+	for ( i = 0; i < SET_SIZE; i++)
 	{
-	     L1[i].valid = false;
-		memset (L1[i].data ,0 ,BLOCK_SIZE);
+		for ( j = 0; i < LINE_SZIE; j++)
+		{
+			 L1[i][j].valid = false;
+		     memset (L1[i][j].data ,0 ,BLOCK_SIZE);
+		}   
 	}
 }
 
