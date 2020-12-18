@@ -1,5 +1,23 @@
 #include "common.h"
+//define some attributes
+#define BLOCK_SIZE 64 //8byte
+#define L1_SIZE  64*1024
 
+typedef struct 
+{
+	bool valid;
+     uint8_t  data[BLOCK_SIZE];
+}Cache;
+Cache L1[L1_SIZE/BLOCK_SIZE];  /*cache1 1024            */
+
+void init_cache(){
+	int i;
+	for ( i = 0; i < L1_SIZE/BLOCK_SIZE; i++)
+	{
+	     L1[i].valid = false;
+		memset (L1[i].data ,0 ,BLOCK_SIZE);
+	}
+}
 uint32_t dram_read(hwaddr_t, size_t);
 void dram_write(hwaddr_t, size_t, uint32_t);
 
