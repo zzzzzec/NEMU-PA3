@@ -49,7 +49,6 @@ void view_cache(uint32_t set , uint32_t line ){
 			printf("\n");
 		}
 	}
-	printf("\n");
 }
 
 /* Memory accessing interfaces */
@@ -119,7 +118,8 @@ uint32_t hwaddr_read(hwaddr_t addr, size_t len)
 		}
 		uint32_t result[2];
 		memcpy(result, L1[set][j].data + (4 * offset), 4);
-		printf("%0x08x \n",result[0]);
+		printf("0x%08x \n",result[0]);
+		printf("0x%08x \n",result[0] & (~0u >> ((4 - len) << 3)));
 		return result[0] & (~0u >> ((4 - len) << 3));
 		/*return dram_read(addr,len) & (~0u >> ((4 - len) << 3));*/
 	}
