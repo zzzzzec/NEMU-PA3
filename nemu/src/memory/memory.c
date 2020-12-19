@@ -17,7 +17,7 @@ Cache L1[SET][LINE];  /*cache1 1024            */
 
 void init_cache(){
 	int i,j;
-	for ( i = 0; i < SET-10; i++)
+	for ( i = 0; i < SET; i++)
 	{
 		for ( j = 0; i < LINE-10; j++)
 		{
