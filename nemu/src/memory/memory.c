@@ -48,11 +48,12 @@ void M2C(hwaddr_t addr,uint32_t set ,int line){
 			for ( k = 0; k < 16; k++)
 			{
 				tem[k] = dram_read(addr, 4);
+				printf("%d ",dram_read(addr , 4));
 			}
 			memcpy(tem , L1[set][line].data , 64);
 		  	for ( k = 0; k < 16; k++)
 			{
-				printf("0x%04x ",tem[k]);
+				//printf("0x%04x ",tem[k]);
 			}
 }
 
