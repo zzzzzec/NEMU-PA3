@@ -208,7 +208,10 @@ static int cmd_c(char *args)
 	 printf( "total time is %ld\n  " , testtime);
 	 printf( "total  hint is %ld \n" , hint);
 	 printf( "total miss is %ld \n" , miss);
-	 float rate = (hint)/(hint + miss);
+	 float hint1,miss1;
+	 hint1 = hint;
+	 miss1 =miss;
+	 float rate = (hint1)/(hint1 + miss1);
 	 printf("hint rate is %f \n",rate);
 	return 0;
 }
