@@ -56,12 +56,13 @@ uint32_t hwaddr_read(hwaddr_t addr, size_t len)
 {
 	/* 0u : 0000 0000 0000 0000
 	 ~0u : 1111 1111 1111 1111   */
-	 printf("HERE \n");
 	bool find = false;
 	uint32_t set, ttag, offset;
 	set = (addr >> 4) & (0x7f);
 	ttag = (addr >> 11);
 	offset = (addr & 0xf);
+	printf("set:0x%07x \ntag:0x%21x \noffset:0x%04x \n"
+		,set,ttag,offset);
 	int i;
 	for (i = 0; i < LINE; i++)
 	{
@@ -73,12 +74,14 @@ uint32_t hwaddr_read(hwaddr_t addr, size_t len)
 	}
 	if (find == true)
 	{
+		printf("TRUE \n");
 		uint32_t result[2];
 		memcpy(result, L1[set][i].data + (4 * offset), 4);
 		return result[0] & (~0u >> ((4 - len) << 3));
 	}
 	else
 	{
+		printf("FALSE\n");
 		bool empty;
 		int j = 0;
 		for (j = 0; j < LINE; j++)
@@ -91,10 +94,12 @@ uint32_t hwaddr_read(hwaddr_t addr, size_t len)
 		}
 		if(empty)
 		{
+			printf("EMPTY \n");
 		   M2C(addr , set,j);
 		}
 		else /*cache full*/
 		{
+			printf("FULL \n");
               int p =get_num();
 			  M2C(addr,set ,p);
 		}

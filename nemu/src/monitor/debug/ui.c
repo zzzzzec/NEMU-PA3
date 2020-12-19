@@ -73,12 +73,6 @@ static int cmd_ca(char *args)
 		addr = expr(arg , &success);
 		if(success){
 		printf("addr:0x%32x \n", addr);
-		uint32_t set, ttag, offset;
-		set = (addr >> 4) & (0x7f);
-		ttag = (addr >> 11);
-		offset = (addr & 0xf);
-		printf("set:0x%07x \ntag:0x%21x \noffset:0x%04x \n"
-		,set,ttag,offset);	
 		printf("0x%08x \n", swaddr_read(addr, 4));
 		}
 		else
