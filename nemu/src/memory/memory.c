@@ -93,6 +93,7 @@ uint32_t hwaddr_read(hwaddr_t addr, size_t len)
 	}
 	if (find == true)
 	{
+		printf("Cache hit!!!!!    \n");
 		uint32_t result[2];
 		memcpy(result, L1[set][i].data + (4 * offset), 4);
 			view_cache(0,0);
