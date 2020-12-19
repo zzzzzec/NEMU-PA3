@@ -128,6 +128,7 @@ uint32_t hwaddr_read(hwaddr_t addr, size_t len)
 		view_cache(0,0);
 		printf("0x%08x \n",result[0]);
 		printf("0x%08x \n",result[0] & (~0u >> ((4 - len) << 3)));
+		printf("\n \n");
 		return result[0] & (~0u >> ((4 - len) << 3));
 		/*return dram_read(addr,len) & (~0u >> ((4 - len) << 3));*/
 	}
