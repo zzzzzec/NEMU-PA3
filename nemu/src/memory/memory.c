@@ -2,8 +2,8 @@
 //define some attributes
 #define BLOCK_SIZE 64 //8byte
 #define L1_SIZE  64*1024
-#define SET_SIZE 8                            //8-way set associate
-#define LINE_SZIE 1024/8 
+#define SET 1024/8                           //8-way set associate
+#define LINE 8 
 
 /*cache line :   ******21*******|| ****7****||****4****
                                                tag                    index          offset   */
@@ -13,19 +13,19 @@ typedef struct
 	 uint32_t tag;
      uint8_t  data[BLOCK_SIZE];
 }Cache;
-Cache L1[SET_SIZE][LINE_SZIE];  /*cache1 1024            */
+Cache L1[SET][LINE];  /*cache1 1024            */
 
 void init_cache(){
-	/*int i,j;
-	for ( i = 0; i < SET_SIZE; i++)
+	int i,j;
+	for ( i = 0; i < SET; i++)
 	{
-		for ( j = 0; i < LINE_SZIE; j++)
+		for ( j = 0; i < LINE; j++)
 		{
 			 //L1[i][j].valid = false;
 			 L1[i][j].tag = 0;
 		     //memset (L1[i][j].data ,0 ,BLOCK_SIZE);
 		}   
-	}*/
+	}
 }
 
 bool check_cache(hwaddr_t addr){
@@ -35,7 +35,7 @@ bool check_cache(hwaddr_t addr){
 	 index = ((addr >> 4) & 0x7f);
 	 ttag = addr >> 11;
      int i;
-	 for ( i = 0; i < SET_SIZE; i++)
+	 for ( i = 0; i < SET; i++)
 	 {
 		 if((L1[i][index].valid == true)&&(L1[i][index].tag == ttag)){
 			 find = true;
