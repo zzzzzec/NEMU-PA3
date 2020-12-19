@@ -1,5 +1,6 @@
 #include "common.h"
 //define some attributes
+#define MAX_MEM (0xfffffff)
 #define BLOCK_SIZE 64 //8byte
 #define L1_SIZE (64 * 1024)
 #define SET (128) //8-way set associate
@@ -35,16 +36,17 @@ void dram_write(hwaddr_t, size_t, uint32_t);
 
 int get_num()
 {
-    number ++;
+	number++;
 	number = number % 8;
 	return number;
 }
-void view_cache(uint32_t set , uint32_t line ){
+void view_cache(uint32_t set, uint32_t line)
+{
 	int i;
-	for ( i = 0; i <64; i++)
+	for (i = 0; i < 64; i++)
 	{
-		printf("%02x ",L1[set][line].data[i]);
-		if(  (i+1)%16 == 0)
+		printf("%02x ", L1[set][line].data[i]);
+		if ((i + 1) % 16 == 0)
 		{
 			printf("\n");
 		}
@@ -53,31 +55,31 @@ void view_cache(uint32_t set , uint32_t line ){
 
 /* Memory accessing interfaces */
 /*copy 64B from ram to cache*/
-void M2C(hwaddr_t addr,uint32_t set ,int line){
-            uint32_t tem[16];
-			uint32_t ttag = (addr >> 13);
-			L1[set][line].valid =true;
-            L1[set][line].tag =ttag;
-			int k=0;
-			for ( k = 0; k < 16; k++)
-			{
-				tem[k] = dram_read(addr, 4);
-				addr += 4;
-			}
-			memcpy(L1[set][line].data , tem  , 64);	
+void M2C(hwaddr_t addr, uint32_t set, int line)
+{
+	uint32_t tem[16];
+	uint32_t ttag = (addr >> 13);
+	L1[set][line].valid = true;
+	L1[set][line].tag = ttag;
+	int k = 0;
+		for (k = 0; k < 16; k++)
+		{
+			tem[k] = dram_read(addr, 4);
+			addr += 4;
+		}
+	memcpy(L1[set][line].data, tem, 64);
 }
 
 uint32_t hwaddr_read(hwaddr_t addr, size_t len)
 {
-	int len1 =len;
-	printf("LEN is %d  Addr is 0x%x\n",len1,addr);
+	int len1 = len;
+	printf("LEN is %d  Addr is 0x%x\n", len1, addr);
 	bool find = false;
 	uint32_t set, ttag, offset;
-	set = (addr >>6) & (0x7f);
+	set = (addr >> 6) & (0x7f);
 	ttag = (addr >> 13);
 	offset = (addr & 0x3f);
-	printf("set:0x%07x \ntag:0x%19x \noffset:0x%06x \n"
-		,set,ttag,offset);
+	printf("set:0x%07x \ntag:0x%19x \noffset:0x%06x \n", set, ttag, offset);
 	int i;
 	for (i = 0; i < LINE; i++)
 	{
@@ -91,10 +93,10 @@ uint32_t hwaddr_read(hwaddr_t addr, size_t len)
 	{
 		printf("Cache hit!!!!!    \n");
 		uint32_t result[2];
-		memcpy(result, L1[set][i].data + ( offset), 4);
-		view_cache(0,0);
-		printf("0x%08x \n",result[0]);
-		printf("0x%08x \n",result[0] & (~0u >> ((4 - len) << 3)));
+		memcpy(result, L1[set][i].data + (offset), 4);
+		view_cache(0, 0);
+		printf("0x%08x \n", result[0]);
+		printf("0x%08x \n", result[0] & (~0u >> ((4 - len) << 3)));
 		printf("\n \n");
 		return result[0] & (~0u >> ((4 - len) << 3));
 	}
@@ -105,34 +107,38 @@ uint32_t hwaddr_read(hwaddr_t addr, size_t len)
 		int j = 0;
 		for (j = 0; j < LINE; j++)
 		{
-			if(L1[set][j].valid == 0)
+			if (L1[set][j].valid == 0)
 			{
 				empty = true;
 				break;
 			}
 		}
-		if(empty)
+	  if (addr + 64 >= MAX_MEM)  /*do not add this block into cache*/
+	  {
+		  printf("EDGE!!!!!    \n");
+         return dram_read(addr,len) & (~0u >> ((4 - len) << 3));
+	  }
+		if (empty)
 		{
 			printf("NO FULL!!!!!    \n");
-		   M2C(addr , set,j);
+			M2C(addr, set, j);
 		}
 		else /*cache full*/
 		{
 			printf("FULL!!!!!    \n");
-              int p =get_num();
-			  M2C(addr,set ,p);
+			int p = get_num();
+			M2C(addr, set, p);
 		}
 		uint32_t result[2];
 		memcpy(result, L1[set][j].data + (offset), 4);
-		view_cache(0,0);
-		printf("0x%08x \n",result[0]);
-		printf("0x%08x \n",result[0] & (~0u >> ((4 - len) << 3)));
+		view_cache(0, 0);
+		printf("0x%08x \n", result[0]);
+		printf("0x%08x \n", result[0] & (~0u >> ((4 - len) << 3)));
 		printf("\n \n");
 		return result[0] & (~0u >> ((4 - len) << 3));
 		/*return dram_read(addr,len) & (~0u >> ((4 - len) << 3));*/
 	}
 }
-
 
 void hwaddr_write(hwaddr_t addr, size_t len, uint32_t data)
 {
@@ -165,4 +171,3 @@ void swaddr_write(swaddr_t addr, size_t len, uint32_t data)
 #endif
 	lnaddr_write(addr, len, data);
 }
-
