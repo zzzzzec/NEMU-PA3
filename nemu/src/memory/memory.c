@@ -57,7 +57,7 @@ void M2C(hwaddr_t addr,uint32_t set ,int line){
             uint32_t tem[16];
 			uint32_t ttag = (addr >> 11);
 			L1[set][line].valid =true;
-             L1[set][line].tag =ttag;
+            L1[set][line].tag =ttag;
 			int k=0;
 			for ( k = 0; k < 16; k++)
 			{
@@ -125,9 +125,9 @@ uint32_t hwaddr_read(hwaddr_t addr, size_t len)
 		}
 		uint32_t result[2];
 		memcpy(result, L1[set][j].data + (4 * offset), 4);
+		view_cache(0,0);
 		printf("0x%08x \n",result[0]);
 		printf("0x%08x \n",result[0] & (~0u >> ((4 - len) << 3)));
-		view_cache(0,0);
 		return result[0] & (~0u >> ((4 - len) << 3));
 		/*return dram_read(addr,len) & (~0u >> ((4 - len) << 3));*/
 	}
