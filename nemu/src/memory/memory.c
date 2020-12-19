@@ -43,7 +43,7 @@ void view_cache(uint32_t set , uint32_t line ){
 	int i;
 	for ( i = 0; i <64; i++)
 	{
-		printf("%2x ",L1[set][line].data[i]);
+		printf("%x ",L1[set][line].data[i]);
 		if(i!=0 && i%16 == 0)
 		{
 			printf("\n");
