@@ -74,10 +74,8 @@ void M2C(hwaddr_t addr,uint32_t set ,int line){
 
 uint32_t hwaddr_read(hwaddr_t addr, size_t len)
 {
-	/* 0u : 0000 0000 0000 0000
-	 ~0u : 1111 1111 1111 1111   */
-	 int len1 =len;
-	 printf("LEN is %d \n",len1);
+	int len1 =len;
+	printf("LEN is %d \n",len1);
 	bool find = false;
 	uint32_t set, ttag, offset;
 	set = (addr >> 4) & (0x7f);
@@ -99,7 +97,10 @@ uint32_t hwaddr_read(hwaddr_t addr, size_t len)
 		printf("Cache hit!!!!!    \n");
 		uint32_t result[2];
 		memcpy(result, L1[set][i].data + (4 * offset), 4);
-			view_cache(0,0);
+		view_cache(0,0);
+		printf("0x%08x \n",result[0]);
+		printf("0x%08x \n",result[0] & (~0u >> ((4 - len) << 3)));
+		printf("\n \n");
 		return result[0] & (~0u >> ((4 - len) << 3));
 	}
 	else
