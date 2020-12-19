@@ -6,7 +6,7 @@
 #define LINE 8
 int number = 0;
 
-/*cache line :   ******21*******|| ****7****||****4****
+/*cache line :   ******19*******|| ****7****||****6****
                                                tag                    index          offset   */
 typedef struct
 {
@@ -55,7 +55,7 @@ void view_cache(uint32_t set , uint32_t line ){
 /*copy 64B from ram to cache*/
 void M2C(hwaddr_t addr,uint32_t set ,int line){
             uint32_t tem[16];
-			uint32_t ttag = (addr >> 11);
+			uint32_t ttag = (addr >> 13);
 			L1[set][line].valid =true;
             L1[set][line].tag =ttag;
 			int k=0;
@@ -73,10 +73,10 @@ uint32_t hwaddr_read(hwaddr_t addr, size_t len)
 	printf("LEN is %d  Addr is 0x%x\n",len1,addr);
 	bool find = false;
 	uint32_t set, ttag, offset;
-	set = (addr >> 4) & (0x7f);
-	ttag = (addr >> 11);
-	offset = (addr & 0xf);
-	printf("set:0x%07x \ntag:0x%21x \noffset:0x%04x \n"
+	set = (addr >>6) & (0x7f);
+	ttag = (addr >> 13);
+	offset = (addr & 0x3f);
+	printf("set:0x%07x \ntag:0x%19x \noffset:0x%06x \n"
 		,set,ttag,offset);
 	int i;
 	for (i = 0; i < LINE; i++)
@@ -91,7 +91,7 @@ uint32_t hwaddr_read(hwaddr_t addr, size_t len)
 	{
 		printf("Cache hit!!!!!    \n");
 		uint32_t result[2];
-		memcpy(result, L1[set][i].data + (4 * offset), 4);
+		memcpy(result, L1[set][i].data + ( offset), 4);
 		view_cache(0,0);
 		printf("0x%08x \n",result[0]);
 		printf("0x%08x \n",result[0] & (~0u >> ((4 - len) << 3)));
@@ -120,7 +120,7 @@ uint32_t hwaddr_read(hwaddr_t addr, size_t len)
 			  M2C(addr,set ,p);
 		}
 		uint32_t result[2];
-		memcpy(result, L1[set][j].data + (4 * offset), 4);
+		memcpy(result, L1[set][j].data + (offset), 4);
 		view_cache(0,0);
 		printf("0x%08x \n",result[0]);
 		printf("0x%08x \n",result[0] & (~0u >> ((4 - len) << 3)));
