@@ -99,7 +99,8 @@ uint32_t hwaddr_read(hwaddr_t addr, size_t len)
 		}
 		uint32_t result[2];
 		memcpy(result, L1[set][i].data + (4 * offset), 4);
-		return result[0] & (~0u >> ((4 - len) << 3));
+		/*return result[0] & (~0u >> ((4 - len) << 3));*/
+		return dram_read(addr,len) & (~0u >> ((4 - len) << 3));
 	}
 }
 
