@@ -113,7 +113,7 @@ uint32_t hwaddr_read(hwaddr_t addr, size_t len)
 				break;
 			}
 		}
-	  if (addr + 64 >= MAX_MEM)  /*do not add this block into cache*/
+	  if ((addr + 64) >= MAX_MEM)  /*do not add this block into cache*/
 	  {
 		  printf("EDGE!!!!!    \n");
          return dram_read(addr,len) & (~0u >> ((4 - len) << 3));
