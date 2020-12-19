@@ -69,7 +69,6 @@ static int cmd_ca(char *args)
 	swaddr_t addr;
 	if (arg != NULL)
 	{
-		printf("%s \n",arg);
 		bool success;
 		addr = expr(arg , &success);
 		if(success){
@@ -80,6 +79,7 @@ static int cmd_ca(char *args)
 		offset = (addr & 0xf);
 		printf("set:0x%07x \ntag:0x%21x \noffset:0x%04x \n"
 		,set,ttag,offset);	
+		printf("0x%08x ", swaddr_read(addr, 4));
 		}
 		else
 		{
