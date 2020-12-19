@@ -1,8 +1,8 @@
 #include "common.h"
 //define some attributes
 #define BLOCK_SIZE 64 //8byte
-#define L1_SIZE  64*1024
-#define SET 1024/8                           //8-way set associate
+#define L1_SIZE  (64*1024)
+#define SET (1024/8 )                          //8-way set associate
 #define LINE 8 
 
 /*cache line :   ******21*******|| ****7****||****4****
