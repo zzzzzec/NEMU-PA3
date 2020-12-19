@@ -63,7 +63,7 @@ static int cmd_info(char *args)
 	}
 	return 0;
 }
-static int cmd_cache(char *args)
+static int cmd_ca(char *args)
 {
 	char *arg = strtok(NULL, " ");
 	swaddr_t addr;
@@ -73,12 +73,12 @@ static int cmd_cache(char *args)
 		bool success;
 		addr = expr(arg , &success);
 		if(success){
-		printf("NOW addr is 0x%32x \n", addr);
+		printf("addr:0x%32x \n", addr);
 		uint32_t set, ttag, offset;
 		set = (addr >> 4) & (0x7f);
 		ttag = (addr >> 11);
 		offset = (addr & 0xf);
-		printf("set is 0x%07x \ntag is 0x%21x \noffset is 0x%04x \n"
+		printf("set:0x%07x \ntag:0x%21x \noffset:0x%04x \n"
 		,set,ttag,offset);	
 		}
 		else
@@ -239,7 +239,7 @@ static struct
 	{"w", "Set watchpoint", cmd_w},
 	{"d", "Delete watchpoint", cmd_d},
 	{"bt", "Display backtrace", cmd_bt},
-	{"cache", "debug cache ", cmd_cache}
+	{"ca", "debug ca ", cmd_ca}
 
 };
 
