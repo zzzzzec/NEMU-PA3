@@ -149,7 +149,7 @@ void hwaddr_write(hwaddr_t addr, size_t len, uint32_t data)
 	set = (addr >> 6) & (0x7f);
 	ttag = (addr >> 13);
 	offset = (addr & 0x3f);
-	bool find;
+	bool find =false;
 	int i;
 	for (i = 0; i < LINE; i++)
 	{
@@ -163,7 +163,6 @@ void hwaddr_write(hwaddr_t addr, size_t len, uint32_t data)
 		printf("LEN is %ld  Addr is 0x%x\n", len, addr);
 		printf("data is 0x%08x \n",data);
 	    memcpy(L1[set][i].data +offset , &data ,len);
-		assert(find != true);
 	}
 	dram_write(addr, len, data);
 }
