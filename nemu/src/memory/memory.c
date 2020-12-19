@@ -51,7 +51,7 @@ void M2C(hwaddr_t addr,uint32_t set ,int line){
 				/*printf("0x%08x ",dram_read(addr , 4));*/
 				addr += 4;
 			}
-			memcpy(tem , L1[set][line].data , 64);	
+			memcpy(L1[set][line].data , tem  , 64);	
      		for ( k = 0; k < 64; k++)
 			{
 				printf("0x%02x ",L1[set][line].data[k]);
