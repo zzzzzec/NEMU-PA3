@@ -52,10 +52,10 @@ void M2C(hwaddr_t addr,uint32_t set ,int line){
 				addr += 4;
 			}
 			memcpy(L1[set][line].data , tem  , 64);	
-     		for ( k = 0; k < 64; k++)
+     		/*for ( k = 0; k < 64; k++)
 			{
 				printf("0x%02x ",L1[set][line].data[k]);
-			}
+			}*/
 }
 
 uint32_t hwaddr_read(hwaddr_t addr, size_t len)
@@ -100,7 +100,7 @@ uint32_t hwaddr_read(hwaddr_t addr, size_t len)
 		}
 		if(empty)
 		{
-			printf("EMPTY \n");
+			printf("EMPTY j is %d \n",j);
 		   M2C(addr , set,j);
 		}
 		else /*cache full*/
@@ -111,6 +111,7 @@ uint32_t hwaddr_read(hwaddr_t addr, size_t len)
 		}
 		uint32_t result[2];
 		memcpy(result, L1[set][i].data + (4 * offset), 4);
+		printf("%d \n",result[0]);
 		/*return result[0] & (~0u >> ((4 - len) << 3));*/
 		return dram_read(addr,len) & (~0u >> ((4 - len) << 3));
 	}
