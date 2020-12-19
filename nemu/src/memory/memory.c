@@ -42,6 +42,7 @@ int get_num()
 }
 void view_cache(uint32_t set, uint32_t line)
 {
+	printf("Cache Set %d    line %d \n ",set,line);
 	int i;
 	for (i = 0; i < 64; i++)
 	{
@@ -91,10 +92,10 @@ uint32_t hwaddr_read(hwaddr_t addr, size_t len)
 	}
 	if (find == true)
 	{
-		printf("Cache hit!!!!!    \n");
+		printf("Cache hit at set %d line %d!!!!!    \n",set,i);
 		uint32_t result[2];
 		memcpy(result, L1[set][i].data + (offset), 4);
-		view_cache(0, 0);
+		view_cache(set, i);
 		printf("0x%08x \n", result[0]);
 		printf("0x%08x \n", result[0] & (~0u >> ((4 - len) << 3)));
 		printf("\n \n");
@@ -131,7 +132,7 @@ uint32_t hwaddr_read(hwaddr_t addr, size_t len)
 		}
 		uint32_t result[2];
 		memcpy(result, L1[set][j].data + (offset), 4);
-		view_cache(0, 0);
+		view_cache(set, j);
 		printf("0x%08x \n", result[0]);
 		printf("0x%08x \n", result[0] & (~0u >> ((4 - len) << 3)));
 		printf("\n \n");
