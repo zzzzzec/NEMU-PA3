@@ -70,7 +70,7 @@ void M2C(hwaddr_t addr,uint32_t set ,int line){
 uint32_t hwaddr_read(hwaddr_t addr, size_t len)
 {
 	int len1 =len;
-	printf("LEN is %d  Addr is %d\n",len1,addr);
+	printf("LEN is %d  Addr is 0x%x\n",len1,addr);
 	bool find = false;
 	uint32_t set, ttag, offset;
 	set = (addr >> 4) & (0x7f);
