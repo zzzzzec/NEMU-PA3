@@ -160,8 +160,10 @@ void hwaddr_write(hwaddr_t addr, size_t len, uint32_t data)
 		}
 	}
 	if(find){ 
-		assert(find != true);
+		printf("LEN is %ld  Addr is 0x%x\n", len, addr);
+		printf("data is %d  \n",data);
 	    memcpy(L1[set][i].data +offset , &data ,len);
+		assert(find != true);
 	}
 	dram_write(addr, len, data);
 }
