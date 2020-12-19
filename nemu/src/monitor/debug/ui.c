@@ -69,7 +69,9 @@ static int cmd_cache(char *args)
 	swaddr_t addr;
 	if (arg != NULL)
 	{
-		sscanf(arg, "%d", &addr);
+		bool success;
+		addr = expr(arg + strlen(arg) + 1, &success);
+		if(success){
 		printf("NOW addr is %d \n", addr);
 		uint32_t set, ttag, offset;
 		set = (addr >> 4) & (0x7f);
@@ -77,6 +79,12 @@ static int cmd_cache(char *args)
 		offset = (addr & 0xf);
 		printf("set is 0x%07x \n tag is 0x%21x \n offset is 0x%04x \n"
 		,set,ttag,offset);	
+		}
+		else
+		{
+			printf("Bad expression\n");
+		}
+		
 	}
 	return 0;
 }
