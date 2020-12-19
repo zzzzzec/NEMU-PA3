@@ -19,7 +19,7 @@ void init_cache(){
 	int i,j;
 	for ( i = 0; i < SET; i++)
 	{
-		for ( j = 0; i < LINE-10; j++)
+		for ( j = 0; j < LINE; j++)
 		{
 			 L1[i][j].valid = false;
 			 L1[i][j].tag = 0;
@@ -28,24 +28,8 @@ void init_cache(){
 	}
 }
 
-bool check_cache(hwaddr_t addr){
-	bool find = false;
-    uint32_t ttag,index,offset;
-	 offset = (addr & 0xf) * 4;
-	 index = ((addr >> 4) & 0x7f);
-	 ttag = addr >> 11;
-     int i;
-	 for ( i = 0; i < SET; i++)
-	 {
-		 if((L1[i][index].valid == true)&&(L1[i][index].tag == ttag)){
-			 find = true;
-		 }
-	 }
-	 return find;
-}
-/*uint32_t cache_read(hwaddr_t ,size_t){
-  
-}*/
+
+
 uint32_t dram_read(hwaddr_t, size_t);
 void dram_write(hwaddr_t, size_t, uint32_t);
 
@@ -54,12 +38,33 @@ void dram_write(hwaddr_t, size_t, uint32_t);
 uint32_t hwaddr_read(hwaddr_t addr, size_t len) {
 	/* 0u : 0000 0000 0000 0000
 	 ~0u : 1111 1111 1111 1111   */
-	 /*bool check =false;
-	 check = check_cache(addr);
-     if(check){
-        return 0;
-	 }*/
-		  return dram_read(addr, len) & (~0u >> ((4 - len) << 3));
+	bool find=false;
+    uint32_t set, ttag,offset;
+	set = (addr >> 4)&(0x7f);
+	ttag = (addr >> 11);
+    offset = (addr & 0xf);
+	int i ;
+	for ( i = 0; i < LINE; i++)
+	{
+		if(L1[set][i].valid == true && L1[set][i].tag == ttag){
+                find = true;
+				break;
+		}
+	}
+	if(find == true){
+		uint32_t result[2];
+		memcpy(result , L1[set][i].data +(4* offset),4);
+		return result[0]& (~0u >> ((4 - len) << 3));
+	}
+    else
+	{
+	/* int j =0;
+	 for(j =0;j<LINE ;j++){
+
+	 }	
+	}*/
+	return dram_read(addr, len) & (~0u >> ((4 - len) << 3));
+	  }	
 }
 
 void hwaddr_write(hwaddr_t addr, size_t len, uint32_t data) {
