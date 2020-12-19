@@ -100,7 +100,7 @@ static int cmd_x(char *args)
 	if (arg != NULL)
 	{
 		sscanf(arg, "%d", &n);
-
+        printf("%s \n",arg);
 		bool success;
 		addr = expr(arg + strlen(arg) + 1, &success);
 		if (success)
