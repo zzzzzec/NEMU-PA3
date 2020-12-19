@@ -93,7 +93,7 @@ uint32_t hwaddr_read(hwaddr_t addr, size_t len)
 	}
 	if (find == true)
 	{
-		printf("Cache hit at set %d line %d!!!!!    \n",set,i);
+		//printf("Cache hit at set %d line %d!!!!!    \n",set,i);
 		testtime +=2;
 		uint32_t result[2];
 		memcpy(result, L1[set][i].data + (offset), 4);
@@ -105,7 +105,7 @@ uint32_t hwaddr_read(hwaddr_t addr, size_t len)
 	}
 	else
 	{
-		printf("Cache miss!!!!!    \n");
+		//printf("Cache miss!!!!!    \n");
 		testtime += 200;
 		bool empty;
 		int j = 0;
@@ -119,17 +119,17 @@ uint32_t hwaddr_read(hwaddr_t addr, size_t len)
 		}
 	  if ((addr + 64) >= MAX_MEM)  /*do not add this block into cache*/
 	  {
-		  printf("EDGE!!!!!    \n");
+		  //printf("EDGE!!!!!    \n");
          return dram_read(addr,len) & (~0u >> ((4 - len) << 3));
 	  }
 		if (empty)
 		{
-			printf("NO FULL!!!!!    \n");
+			//printf("NO FULL!!!!!    \n");
 			M2C(addr, set, j);
 		}
 		else /*cache full*/
 		{
-			printf("FULL!!!!!    \n");
+			//printf("FULL!!!!!    \n");
 			int p = get_num();
 			M2C(addr, set, p);
 		}
