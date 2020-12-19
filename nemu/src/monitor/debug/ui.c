@@ -71,7 +71,7 @@ static int cmd_cache(char *args)
 	{
 		printf("%s \n",arg);
 		bool success;
-		addr = expr(arg + strlen(arg) + 1, &success);
+		addr = expr(arg + strlen(arg), &success);
 		if(success){
 		printf("NOW addr is %d \n", addr);
 		uint32_t set, ttag, offset;
