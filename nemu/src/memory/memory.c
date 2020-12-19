@@ -17,9 +17,9 @@ Cache L1[SET][LINE];  /*cache1 1024            */
 
 void init_cache(){
 	int i,j;
-	for ( i = 0; i < SET; i++)
+	for ( i = 0; i < SET-10; i++)
 	{
-		for ( j = 0; i < LINE; j++)
+		for ( j = 0; i < LINE-10; j++)
 		{
 			 L1[i][j].valid = false;
 			 L1[i][j].tag = 0;
