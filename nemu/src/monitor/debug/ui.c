@@ -73,7 +73,7 @@ static int cmd_ca(char *args)
 		addr = expr(arg , &success);
 		if(success){
 		printf("addr:0x%32x \n", addr);
-		 swaddr_read(addr, 4);
+		swaddr_read(addr, 4);
 		}
 		else
 		{
