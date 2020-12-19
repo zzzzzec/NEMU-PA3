@@ -54,7 +54,15 @@ static int cmd_info(char *args) {
 	}
 	return 0;
 }
-
+static int cmd_cache(char *args){
+	char *arg = strtok(NULL, " ");
+	swaddr_t addr;
+	if(arg != NULL) {
+		sscanf(arg, "%d", &addr);
+	}
+    printf("%d\n",addr);
+    return 0;
+}
 /* Add examine memory */
 static int cmd_x(char *args) {
 	char *arg = strtok(NULL, " ");
@@ -174,7 +182,8 @@ static struct {
         { "p", "Evaluate the value of expression", cmd_p },
 	{ "w", "Set watchpoint", cmd_w },
 	{ "d", "Delete watchpoint", cmd_d },
-	{ "bt", "Display backtrace", cmd_bt }
+	{ "bt", "Display backtrace", cmd_bt },
+	{"cache", "debug cache ",cmd_cache}
 
 };
 
