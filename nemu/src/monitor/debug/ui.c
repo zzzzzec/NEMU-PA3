@@ -205,6 +205,7 @@ static int cmd_bt(char *args)
 static int cmd_c(char *args)
 {
 	cpu_exec(-1);
+	 printf( "total time is %ld " , testtime);
 	return 0;
 }
 

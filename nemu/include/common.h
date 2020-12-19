@@ -1,3 +1,4 @@
+
 #ifndef __COMMON_H__
 #define __COMMON_H__
 
@@ -30,9 +31,9 @@ typedef union {
 	uint16_t _2;
 	uint8_t _1;
 } unalign;
+
 #pragma pack ()
 
 #define false 0
 #define true 1
-
 #endif
