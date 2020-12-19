@@ -115,9 +115,9 @@ uint32_t hwaddr_read(hwaddr_t addr, size_t len)
 				printf("0x%02x ",L1[set][i].data[k]);
 			}*/
 		memcpy(result, L1[set][j].data + (4 * offset), 4);
-		printf("%d \n",result[0]);
-		/*return result[0] & (~0u >> ((4 - len) << 3));*/
-		return dram_read(addr,len) & (~0u >> ((4 - len) << 3));
+		printf("%0x08x \n",result[0]);
+		return result[0] & (~0u >> ((4 - len) << 3));
+		/*return dram_read(addr,len) & (~0u >> ((4 - len) << 3));*/
 	}
 }
 
