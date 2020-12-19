@@ -58,6 +58,8 @@ void view_cache(uint32_t set, uint32_t line)
 /*copy 64B from ram to cache*/
 void M2C(hwaddr_t addr, uint32_t set, int line)
 {
+	/*we must make sure that addr can divide by 64(blocksize)*/
+	 addr = addr-(addr% 64 );
 	uint32_t tem[16];
 	uint32_t ttag = (addr >> 13);
 	L1[set][line].valid = true;
