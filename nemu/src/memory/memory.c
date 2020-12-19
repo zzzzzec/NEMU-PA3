@@ -100,6 +100,7 @@ uint32_t hwaddr_read(hwaddr_t addr, size_t len)
 	}
 	else
 	{
+		printf("Cache miss!!!!!    \n");
 		bool empty;
 		int j = 0;
 		for (j = 0; j < LINE; j++)
@@ -112,10 +113,12 @@ uint32_t hwaddr_read(hwaddr_t addr, size_t len)
 		}
 		if(empty)
 		{
+			printf("NO FULL!!!!!    \n");
 		   M2C(addr , set,j);
 		}
 		else /*cache full*/
 		{
+			printf("FULL!!!!!    \n");
               int p =get_num();
 			  M2C(addr,set ,p);
 		}
