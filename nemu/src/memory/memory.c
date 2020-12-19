@@ -39,6 +39,18 @@ int get_num()
 	number = number % 8;
 	return number;
 }
+void view_cache(uint32_t set , uint32_t line ){
+	int i;
+	for ( i = 0; i <64; i++)
+	{
+		printf("%2x ",L1[set][line].data[i]);
+		if(i%16 == 0)
+		{
+			printf("\n");
+		}
+	}
+	
+}
 
 /* Memory accessing interfaces */
 /*copy 64B from ram to cache*/
@@ -80,14 +92,12 @@ uint32_t hwaddr_read(hwaddr_t addr, size_t len)
 	}
 	if (find == true)
 	{
-		printf("TRUE \n");
 		uint32_t result[2];
 		memcpy(result, L1[set][i].data + (4 * offset), 4);
 		return result[0] & (~0u >> ((4 - len) << 3));
 	}
 	else
 	{
-		printf("FALSE\n");
 		bool empty;
 		int j = 0;
 		for (j = 0; j < LINE; j++)
@@ -100,12 +110,10 @@ uint32_t hwaddr_read(hwaddr_t addr, size_t len)
 		}
 		if(empty)
 		{
-			printf("EMPTY j is %d \n",j);
 		   M2C(addr , set,j);
 		}
 		else /*cache full*/
 		{
-			printf("FULL \n");
               int p =get_num();
 			  M2C(addr,set ,p);
 		}

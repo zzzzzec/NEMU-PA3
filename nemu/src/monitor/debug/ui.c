@@ -70,16 +70,16 @@ static int cmd_ca(char *args)
 	if (arg != NULL)
 	{
 		bool success;
-		addr = expr(arg , &success);
-		if(success){
-		printf("addr:0x%32x \n", addr);
-		swaddr_read(addr, 4);
+		addr = expr(arg, &success);
+		if (success)
+		{
+			printf("addr:0x%32x \n", addr);
+			view_cache(0,0);
 		}
 		else
 		{
 			printf("Bad expression\n");
 		}
-		
 	}
 	return 0;
 }
