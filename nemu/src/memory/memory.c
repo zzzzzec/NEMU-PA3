@@ -73,6 +73,8 @@ uint32_t hwaddr_read(hwaddr_t addr, size_t len)
 {
 	/* 0u : 0000 0000 0000 0000
 	 ~0u : 1111 1111 1111 1111   */
+	 int len1 =len;
+	 printf("LEN is %d \n",len1);
 	bool find = false;
 	uint32_t set, ttag, offset;
 	set = (addr >> 4) & (0x7f);
@@ -93,6 +95,7 @@ uint32_t hwaddr_read(hwaddr_t addr, size_t len)
 	{
 		uint32_t result[2];
 		memcpy(result, L1[set][i].data + (4 * offset), 4);
+			view_cache(0,0);
 		return result[0] & (~0u >> ((4 - len) << 3));
 	}
 	else
@@ -120,6 +123,7 @@ uint32_t hwaddr_read(hwaddr_t addr, size_t len)
 		memcpy(result, L1[set][j].data + (4 * offset), 4);
 		printf("0x%08x \n",result[0]);
 		printf("0x%08x \n",result[0] & (~0u >> ((4 - len) << 3)));
+		view_cache(0,0);
 		return result[0] & (~0u >> ((4 - len) << 3));
 		/*return dram_read(addr,len) & (~0u >> ((4 - len) << 3));*/
 	}
