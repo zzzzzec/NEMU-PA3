@@ -110,7 +110,11 @@ uint32_t hwaddr_read(hwaddr_t addr, size_t len)
 			  M2C(addr,set ,p);
 		}
 		uint32_t result[2];
-		memcpy(result, L1[set][i].data + (4 * offset), 4);
+		/*for ( k = 0; k < 64; k++)
+			{
+				printf("0x%02x ",L1[set][i].data[k]);
+			}*/
+		memcpy(result, L1[set][j].data + (4 * offset), 4);
 		printf("%d \n",result[0]);
 		/*return result[0] & (~0u >> ((4 - len) << 3));*/
 		return dram_read(addr,len) & (~0u >> ((4 - len) << 3));
