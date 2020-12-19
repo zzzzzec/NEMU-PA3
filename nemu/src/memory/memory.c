@@ -16,16 +16,16 @@ typedef struct
 Cache L1[SET][LINE];  /*cache1 1024            */
 
 void init_cache(){
-	/*int i,j;
+	int i,j;
 	for ( i = 0; i < SET; i++)
 	{
 		for ( j = 0; i < LINE; j++)
 		{
-			 //L1[i][j].valid = false;
+			 L1[i][j].valid = false;
 			 L1[i][j].tag = 0;
-		     //memset (L1[i][j].data ,0 ,BLOCK_SIZE);
+		     memset (L1[i][j].data ,0 ,BLOCK_SIZE);
 		}   
-	}*/
+	}
 }
 
 bool check_cache(hwaddr_t addr){
