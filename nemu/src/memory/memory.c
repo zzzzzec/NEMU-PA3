@@ -75,14 +75,12 @@ void M2C(hwaddr_t addr, uint32_t set, int line)
 
 uint32_t hwaddr_read(hwaddr_t addr, size_t len)
 {
-	int len1 = len;
-	printf("LEN is %d  Addr is 0x%x\n", len1, addr);
 	bool find = false;
 	uint32_t set, ttag, offset;
 	set = (addr >> 6) & (0x7f);
 	ttag = (addr >> 13);
 	offset = (addr & 0x3f);
-	printf("set:0x%07x \ntag:0x%19x \noffset:0x%06x \n", set, ttag, offset);
+	//printf("set:0x%07x \ntag:0x%19x \noffset:0x%06x \n", set, ttag, offset);
 	int i;
 	for (i = 0; i < LINE; i++)
 	{
@@ -97,10 +95,10 @@ uint32_t hwaddr_read(hwaddr_t addr, size_t len)
 		printf("Cache hit at set %d line %d!!!!!    \n",set,i);
 		uint32_t result[2];
 		memcpy(result, L1[set][i].data + (offset), 4);
-		view_cache(set, i);
+		/*view_cache(set, i);
 		printf("0x%08x \n", result[0]);
 		printf("0x%08x \n", result[0] & (~0u >> ((4 - len) << 3)));
-		printf("\n \n");
+		printf("\n \n");*/
 		return result[0] & (~0u >> ((4 - len) << 3));
 	}
 	else
@@ -134,10 +132,10 @@ uint32_t hwaddr_read(hwaddr_t addr, size_t len)
 		}
 		uint32_t result[2];
 		memcpy(result, L1[set][j].data + (offset), 4);
-		view_cache(set, j);
+		/*view_cache(set, j);
 		printf("0x%08x \n", result[0]);
 		printf("0x%08x \n", result[0] & (~0u >> ((4 - len) << 3)));
-		printf("\n \n");
+		printf("\n \n");*/
 		return result[0] & (~0u >> ((4 - len) << 3));
 		/*return dram_read(addr,len) & (~0u >> ((4 - len) << 3));*/
 	}
