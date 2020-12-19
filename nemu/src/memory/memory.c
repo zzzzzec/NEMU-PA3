@@ -164,6 +164,7 @@ void hwaddr_write(hwaddr_t addr, size_t len, uint32_t data)
        uint32_t tem;
 	   tem = *(L1[set][i].data+offset);
         memset(&data,tem,len);
+		assert(find ==false);
 	}
 	dram_write(addr, len, data);
 }
