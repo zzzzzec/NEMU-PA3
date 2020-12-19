@@ -159,11 +159,12 @@ void hwaddr_write(hwaddr_t addr, size_t len, uint32_t data)
 			break;
 		}
 	}
-	/*if(find){ write cache
+	if(find){ 
+		printf("Cache write \n");
        uint32_t tem;
 	   tem = *(L1[set][i].data+offset);
         memset(&data,tem,len);
-	}*/
+	}
 	dram_write(addr, len, data);
 }
 
