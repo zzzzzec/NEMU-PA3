@@ -1,6 +1,6 @@
 #include "common.h"
 //define some attributes
-#define MAX_MEM (0xfffffff)
+#define MAX_MEM (0x8000000-1)
 #define BLOCK_SIZE 64 //8byte
 #define L1_SIZE (64 * 1024)
 #define SET (128) //8-way set associate
