@@ -73,12 +73,12 @@ static int cmd_cache(char *args)
 		bool success;
 		addr = expr(arg , &success);
 		if(success){
-		printf("NOW addr is %d \n", addr);
+		printf("NOW addr is 0x%32x \n", addr);
 		uint32_t set, ttag, offset;
 		set = (addr >> 4) & (0x7f);
 		ttag = (addr >> 11);
 		offset = (addr & 0xf);
-		printf("set is 0x%07x \n tag is 0x%21x \n offset is 0x%04x \n"
+		printf("set is 0x%07x \ntag is 0x%21x \noffset is 0x%04x \n"
 		,set,ttag,offset);	
 		}
 		else
