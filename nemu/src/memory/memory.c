@@ -55,6 +55,7 @@ void view_cache(uint32_t set , uint32_t line ){
 /*copy 64B from ram to cache*/
 void M2C(hwaddr_t addr,uint32_t set ,int line){
             uint32_t tem[16];
+			L1[set][line].valid =true;
 			int k=0;
 			for ( k = 0; k < 16; k++)
 			{
