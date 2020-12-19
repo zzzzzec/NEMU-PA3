@@ -7,7 +7,8 @@
 #define LINE 8
 int number = 0;
 uint64_t testtime =0 ;
-
+uint64_t hint = 0;
+uint64_t miss = 0;
 /*cache line :   ******19*******|| ****7****||****6****
                                                tag                    index          offset   */
 typedef struct
@@ -95,6 +96,7 @@ uint32_t hwaddr_read(hwaddr_t addr, size_t len)
 	{
 		//printf("Cache hit at set %d line %d!!!!!    \n",set,i);
 		testtime +=2;
+		hint ++;
 		uint32_t result[2];
 		memcpy(result, L1[set][i].data + (offset), 4);
 		/*view_cache(set, i);
@@ -107,6 +109,7 @@ uint32_t hwaddr_read(hwaddr_t addr, size_t len)
 	{
 		//printf("Cache miss!!!!!    \n");
 		testtime += 200;
+		miss ++;
 		bool empty;
 		int j = 0;
 		for (j = 0; j < LINE; j++)

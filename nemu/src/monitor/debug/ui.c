@@ -206,6 +206,8 @@ static int cmd_c(char *args)
 {
 	cpu_exec(-1);
 	 printf( "total time is %ld " , testtime);
+	 printf( "total  hint is %ld " , hint);
+	 printf( "total miss is %ld " , miss);
 	return 0;
 }
 

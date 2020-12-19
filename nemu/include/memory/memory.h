@@ -27,4 +27,6 @@ void hwaddr_write(hwaddr_t, size_t, uint32_t);
 void init_cache();
 void view_cache();
 uint64_t testtime;
+uint64_t hint;
+uint64_t miss;
 #endif
