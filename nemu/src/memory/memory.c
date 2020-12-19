@@ -56,6 +56,7 @@ uint32_t hwaddr_read(hwaddr_t addr, size_t len)
 {
 	/* 0u : 0000 0000 0000 0000
 	 ~0u : 1111 1111 1111 1111   */
+	 printf("HERE \n");
 	bool find = false;
 	uint32_t set, ttag, offset;
 	set = (addr >> 4) & (0x7f);
