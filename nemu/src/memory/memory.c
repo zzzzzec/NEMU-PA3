@@ -160,7 +160,7 @@ uint32_t hwaddr_read(hwaddr_t addr, size_t len)
 		}
 		if (empty)
 		{
-			//printf("NO FULL!!!!!    \n");
+			printf("NO FULL!!!!!    \n");
 			M2C(addr_d.addr, addr_d.set, j);
 			memcpy(result, L1[addr_d.set][j].data + (addr_d.offset), 4);
 		}
