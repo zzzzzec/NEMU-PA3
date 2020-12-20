@@ -74,7 +74,7 @@ static int cmd_ca(char *args)
 		if (success)
 		{
 			printf("addr:0x%32x \n", addr);
-			view_cache(0,0);
+			view_cache(addr);
 		}
 		else
 		{
@@ -205,14 +205,14 @@ static int cmd_bt(char *args)
 static int cmd_c(char *args)
 {
 	cpu_exec(-1);
-	 printf( "total time is %ld\n" , testtime);
-	 printf( "total  hint is %ld \n" , hint);
-	 printf( "total miss is %ld \n" , miss);
-	 float hint1,miss1;
-	 hint1 = hint;
-	 miss1 =miss;
-	 float rate = (hint1)/(hint1 + miss1);
-	 printf("hint rate is %f \n",rate);
+	printf("total time is %ld\n", testtime);
+	printf("total  hint is %ld \n", hint);
+	printf("total miss is %ld \n", miss);
+	float hint1, miss1;
+	hint1 = hint;
+	miss1 = miss;
+	float rate = (hint1) / (hint1 + miss1);
+	printf("hint rate is %f \n", rate);
 	return 0;
 }
 
