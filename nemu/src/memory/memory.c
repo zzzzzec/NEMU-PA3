@@ -166,7 +166,7 @@ uint32_t hwaddr_read(hwaddr_t addr, size_t len)
 		}
 		else /*cache full*/
 		{
-			//printf("FULL!!!!!    \n");
+		    Assert(empty,"FULL \n");
 			int p = get_num();
 			M2C(addr_d.addr, addr_d.set,p);
 			memcpy(result, L1[addr_d.set][p].data + (addr_d.offset), 4);
