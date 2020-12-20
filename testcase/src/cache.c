@@ -1,5 +1,5 @@
 #include "trap.h"
-#define Cachesize (64*1024)
+#define Cachesize (64*1024*16)
 int main(){
     int a[Cachesize/4];
     int  i;
@@ -10,3 +10,5 @@ int main(){
     }
     return 0;
 }
+
+
