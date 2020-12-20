@@ -3,10 +3,10 @@
 int main(){
     int a[Cachesize/4];
     int  i;
-    int k;
+    int k = 0;
     for ( i = 0; i < (Cachesize/4); i++)
     {
-        k = a[i];
+        a[i] =k ;
     }
     return 0;
 }
