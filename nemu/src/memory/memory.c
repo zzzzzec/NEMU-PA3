@@ -1,6 +1,6 @@
 #include "common.h"
 //define some attributes
-#define MAX_MEM (0x8000000 - 1)
+ #define HW_MEM_SIZE (1 << 27) /*2^27*/
 #define BLOCK_SIZE 64 //8byte
 #define L1_SIZE (64 * 1024)
 #define SET (128) //8-way set associate
@@ -116,6 +116,7 @@ void M2C(hwaddr_t addr, uint32_t set, int line)
 
 uint32_t hwaddr_read(hwaddr_t addr, size_t len)
 {
+	Assert(addr < HW_MEM_SIZE, "READ_ASSERT physical address %x is outside of the physical memory!", addr);
 	addr_D addr_d;
 	addr_d = divide_addr(addr,addr_d );
 	int find = search_cache(addr_d);
@@ -140,7 +141,7 @@ uint32_t hwaddr_read(hwaddr_t addr, size_t len)
 		//printf("Cache miss!!!!!    \n");
 		testtime += 200;
 		miss++;
-		if ((addr + 64) >= MAX_MEM) /*do not add this block into cache*/
+		if ((addr + 64) >= HW_MEM_SIZE) /*do not add this block into cache*/
 		{
 			//printf("EDGE!!!!!    \n");
 			return dram_read(addr, len) & (~0u >> ((4 - len) << 3));
