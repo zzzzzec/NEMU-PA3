@@ -116,6 +116,7 @@ void M2C(hwaddr_t addr, uint32_t set, int line)
 
 uint32_t hwaddr_read(hwaddr_t addr, size_t len)
 {
+	return dram_read(addr,len) & (~0u >> ((4 - len) << 3));
 	Assert(addr < HW_MEM_SIZE, "READ_ASSERT1 physical address %x is outside of the physical memory!", addr);
 	addr_D addr_d;
 	addr_d = divide_addr(addr,addr_d );
@@ -165,7 +166,7 @@ uint32_t hwaddr_read(hwaddr_t addr, size_t len)
 		}
 		else /*cache full*/
 		{
-			printf("FULL!!!!!    \n");
+			//printf("FULL!!!!!    \n");
 			int p = get_num();
 			M2C(addr_d.addr, addr_d.set,p);
 			memcpy(result, L1[addr_d.set][p].data + (addr_d.offset), 4);
