@@ -53,7 +53,7 @@ clean: clean-cpp
 
 ##### some convinient rules #####
 
-USERPROG := obj/testcase/matrix-mul
+USERPROG := obj/testcase/cache
 ENTRY := $(USERPROG)
 #ENTRY := $(kernel_BIN)
 

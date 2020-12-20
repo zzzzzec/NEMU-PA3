@@ -116,7 +116,7 @@ void M2C(hwaddr_t addr, uint32_t set, int line)
 
 uint32_t hwaddr_read(hwaddr_t addr, size_t len)
 {
-	return dram_read(addr,len) & (~0u >> ((4 - len) << 3));
+	//return dram_read(addr,len) & (~0u >> ((4 - len) << 3));
 	Assert(addr < HW_MEM_SIZE, "READ_ASSERT1 physical address %x is outside of the physical memory!", addr);
 	addr_D addr_d;
 	addr_d = divide_addr(addr,addr_d );
