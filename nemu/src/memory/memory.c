@@ -165,7 +165,7 @@ uint32_t hwaddr_read(hwaddr_t addr, size_t len)
 		}
 		else /*cache full*/
 		{
-			//printf("FULL!!!!!    \n");
+			printf("FULL!!!!!    \n");
 			int p = get_num();
 			M2C(addr_d.addr, addr_d.set,p);
 			memcpy(result, L1[addr_d.set][p].data + (addr_d.offset), 4);
@@ -186,8 +186,8 @@ void hwaddr_write(hwaddr_t addr, size_t len, uint32_t data)
     int find = search_cache(addr_d);
 	if (find != -1)
 	{
-		printf("LEN is %ld  Addr is 0x%x\n", len, addr);
-		printf("data is 0x%08x \n",data);
+		/*printf("LEN is %ld  Addr is 0x%x\n", len, addr);
+		printf("data is 0x%08x \n",data);*/
 		if(addr_d.offset + len >= BLOCK_SIZE)
 		{
 			len = BLOCK_SIZE - addr_d.offset;
