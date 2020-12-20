@@ -148,7 +148,7 @@ uint32_t hwaddr_read(hwaddr_t addr, size_t len)
 			return dram_read(addr, len) & (~0u >> ((4 - len) << 3));
 		}
         uint32_t result[2];
-		bool empty;
+		bool empty = false;
 		int j = 0;
 		for (j = 0; j < LINE; j++)
 		{
