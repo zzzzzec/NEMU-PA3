@@ -91,6 +91,9 @@ void view_cache(hwaddr_t addr)
 			printf("\n");
 		}
 	}
+	uint32_t result[2];
+	memcpy(result, L1[addr_d.set][find].data + (addr_d.offset), 4);
+	printf("the value of addr is : 0x%x",result[0] );
 }
 
 /* Memory accessing interfaces */
