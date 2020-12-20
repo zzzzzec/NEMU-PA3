@@ -120,7 +120,7 @@ uint32_t hwaddr_read(hwaddr_t addr, size_t len)
 	addr_D addr_d;
 	addr_d = divide_addr(addr,addr_d );
 	int find = search_cache(addr_d);
-	if(addr_d.offset>=(59)){
+	if(addr_d.offset>=(BLOCK_SIZE-4)){
 		return dram_read(addr, len) & (~0u >> ((4 - len) << 3));
 	}
 	if (find != -1)
@@ -188,6 +188,10 @@ void hwaddr_write(hwaddr_t addr, size_t len, uint32_t data)
 	{
 		/*printf("LEN is %ld  Addr is 0x%x\n", len, addr);
 		printf("data is 0x%08x \n",data);*/
+		if(addr_d.offset + len >= BLOCK_SIZE)
+		{
+			len = BLOCK_SIZE - addr_d.offset;
+		}
 		memcpy(L1[addr_d.set][find].data + addr_d.offset, &data, len);
 	}
 	dram_write(addr, len, data);
