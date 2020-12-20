@@ -205,7 +205,7 @@ static int cmd_bt(char *args)
 static int cmd_c(char *args)
 {
 	cpu_exec(-1);
-	 printf( "total time is %ld\n  " , testtime);
+	 printf( "total time is %ld\n" , testtime);
 	 printf( "total  hint is %ld \n" , hint);
 	 printf( "total miss is %ld \n" , miss);
 	 float hint1,miss1;
