@@ -8,7 +8,7 @@ int main(){
     {
         a[i] =k ;
     }*/
-    for ( i = 0; i <(Cachesize/4); i = i + 65)
+    for ( i = 0; i <(Cachesize/4); i = i + 17)
     {
         a[i]=k;
     }
