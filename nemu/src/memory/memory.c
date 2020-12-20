@@ -174,25 +174,14 @@ uint32_t hwaddr_read(hwaddr_t addr, size_t len)
 
 void hwaddr_write(hwaddr_t addr, size_t len, uint32_t data)
 { /*write through*/
-	uint32_t set, ttag, offset;
-	set = (addr >> 6) & (0x7f);
-	ttag = (addr >> 13);
-	offset = (addr & 0x3f);
-	bool find = false;
-	int i;
-	for (i = 0; i < LINE; i++)
-	{
-		if (L1[set][i].valid == true && L1[set][i].tag == ttag)
-		{
-			find = true;
-			break;
-		}
-	}
-	if (find)
+	addr_D addr_d;
+	addr_d = divide_addr(addr ,addr_d);
+    int find = search_cache(addr_d);
+	if (find != -1)
 	{
 		/*printf("LEN is %ld  Addr is 0x%x\n", len, addr);
 		printf("data is 0x%08x \n",data);*/
-		memcpy(L1[set][i].data + offset, &data, len);
+		memcpy(L1[addr_d.set][find].data + addr_d.offset, &data, len);
 	}
 	dram_write(addr, len, data);
 }
