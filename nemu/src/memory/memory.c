@@ -93,7 +93,7 @@ void view_cache(hwaddr_t addr)
 	}
 	uint32_t result[2];
 	memcpy(result, L1[addr_d.set][find].data + (addr_d.offset), 4);
-	printf("the value of addr is : 0x%x",result[0] );
+	printf("the value of addr is : 0x%x \n",result[0] );
 }
 
 /* Memory accessing interfaces */
@@ -119,6 +119,9 @@ uint32_t hwaddr_read(hwaddr_t addr, size_t len)
 	addr_D addr_d;
 	addr_d = divide_addr(addr,addr_d );
 	int find = search_cache(addr_d);
+	if(addr_d.offset>=(59)){
+		return dram_read(addr, len) & (~0u >> ((4 - len) << 3));
+	}
 	if (find != -1)
 	{
 		//printf("Cache hit at set %d line %d!!!!!    \n",set,i);
