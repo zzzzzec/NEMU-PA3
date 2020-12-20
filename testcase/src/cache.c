@@ -8,5 +8,5 @@ int main(){
     {
         k = a[i];
     }
-    
+    return 0;
 }
