@@ -39,6 +39,8 @@
 		orl     $0x1, %eax
 		movl    %eax, %cr0
 
+	# set cr0.PE = 1 and switch to protect mod
+
 	# Complete transition to 32-bit protected mode by using long jmp
 	# to reload %CS and %EIP.  The segment descriptors are set up with no
 	# translation, so that the mapping is still the identity mapping.

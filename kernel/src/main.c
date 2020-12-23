@@ -96,12 +96,13 @@ void init_cond() {
 	 * convention of the "advanced" runtime environment. */
 	asm volatile("movl %0, %%esp" : : "i"(KOFFSET));
 #endif
-
+   
 	/* Keep the `bt' command happy. */
 	asm volatile("movl $0, %ebp");
 	asm volatile("subl $16, %esp");
+	panic("Where is here ????");
 
-	/* Here we go! */
+	/* Here we go! */   /*read insrtuction from eip*/
 	((void(*)(void))eip)();
 
 	HIT_GOOD_TRAP;
