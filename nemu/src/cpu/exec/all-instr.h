@@ -44,5 +44,6 @@
 #include "string/stos.h"
 
 #include "misc/misc.h"
+#include "control/lgdt.h"
 
 #include "special/special.h"

@@ -13,7 +13,7 @@ enum
 	R_EBP,
 	R_ESI,
 	R_EDI
-};
+	};
 enum
 {
 	R_AX,
@@ -118,13 +118,13 @@ typedef struct
 	{
 		struct
 		{
-			uint32_t PE : 1;
-			uint32_t MP : 1;
-			uint32_t EM : 1;
-			uint32_t TS : 1;
-			uint32_t ET : 1;
+			uint32_t CR0_PE : 1;
+			uint32_t CR0_MP : 1;
+			uint32_t CR0_EM : 1;
+			uint32_t CR0_TS : 1;
+			uint32_t CR0_ET : 1;
 			uint32_t       : 26;
-			uint32_t PG : 1;
+			uint32_t CR0_PG : 1;
 		};
 		uint32_t CR0;
 	};
