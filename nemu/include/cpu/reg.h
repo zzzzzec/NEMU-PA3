@@ -2,6 +2,8 @@
 #define __REG_H__
 
 #include "common.h"
+#include "../../../lib-common/x86-inc/cpu.h"
+#include "../../../lib-common/x86-inc/mmu.h"
 
 enum
 {
@@ -113,21 +115,9 @@ typedef struct
 		};
 		struct SEG_REG sr[4];
 	};
-
-	union
-	{
-		struct
-		{
-			uint32_t CR0_PE : 1;
-			uint32_t CR0_MP : 1;
-			uint32_t CR0_EM : 1;
-			uint32_t CR0_TS : 1;
-			uint32_t CR0_ET : 1;
-			uint32_t       : 26;
-			uint32_t CR0_PG : 1;
-		};
-		uint32_t CR0;
-	};
+     
+	CR0  cr0;
+    CR3  cr3;
 } CPU_state;
 
 extern CPU_state cpu;
