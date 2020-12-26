@@ -1,8 +1,8 @@
 # prototype: make_command(program, flags, msg, input)
 define make_command
-echo + $(3)
-mkdir -p $(@D)
-$(1) -o $@ $(4) $(2) 
+@echo + $(3)
+@mkdir -p $(@D)
+@$(1) -o $@ $(4) $(2) 
 endef
 
 # prototype: make_common_rules(target, cflags_extra)
