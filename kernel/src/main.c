@@ -100,7 +100,7 @@ void init_cond() {
 	/* Keep the `bt' command happy. */
 	asm volatile("movl $0, %ebp");
 	asm volatile("subl $16, %esp");
-	panic("Where is here ????");
+	//panic("Where is here ????");
 
 	/* Here we go! */   /*read insrtuction from eip*/
 	((void(*)(void))eip)();
