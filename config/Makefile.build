@@ -1,11 +1,12 @@
 # prototype: make_command(program, flags, msg, input)
 define make_command
-@echo + $(3)
-@mkdir -p $(@D)
-@$(1) -o $@ $(4) $(2) 
+echo + $(3)
+mkdir -p $(@D)
+$(1) -o $@ $(4) $(2) 
 endef
 
 # prototype: make_common_rules(target, cflags_extra)
+#define function
 define make_common_rules
 $(1)_SRC_DIR := $(1)/src
 $(1)_INC_DIR := $(1)/include
