@@ -1,12 +1,10 @@
 # prototype: make_command(program, flags, msg, input)
+#$(call make_command, $(CC), $(nemu_LDFLAGS), ld $@, $^)
 define make_command
-echo "make_command1"
 @echo + $(3)
-echo "make_command2"
+#link library
 @mkdir -p $(@D)
-echo "make_command3"
-@$(1) -o $@ $(4) $(2) 
-echo "make_command4"
+$(1) -o $@ $(4) $(2) 
 endef
 
 # prototype: make_common_rules(target, cflags_extra)
