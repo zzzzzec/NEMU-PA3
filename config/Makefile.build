@@ -1,5 +1,6 @@
 # prototype: make_command(program, flags, msg, input)
 define make_command
+echo "make_command"
 @echo + $(3)
 @mkdir -p $(@D)
 @$(1) -o $@ $(4) $(2) 
