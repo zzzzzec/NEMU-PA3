@@ -44,6 +44,7 @@ void init_cache()
 
 uint32_t dram_read(hwaddr_t, size_t);
 void dram_write(hwaddr_t, size_t, uint32_t);
+lnaddr_t ser_translate(swaddr_t addr , size_t len , uint8_t sreg);
 
 int get_num()
 {
@@ -215,8 +216,8 @@ uint32_t swaddr_read(swaddr_t addr, size_t len)
 	/*if len != 1 2 4 ,assert)*/
 	assert(len == 1 || len == 2 || len == 4);
 #endif
-    //lnaddr_t lnaddr = ser_translate(addr , len ,sreg);
-	return lnaddr_read(addr, len);
+    lnaddr_t lnaddr = ser_translate(addr , len ,cur_seg);
+	return lnaddr_read(lnaddr, len);
 }
 
 void swaddr_write(swaddr_t addr, size_t len, uint32_t data)
@@ -233,5 +234,7 @@ lnaddr_t ser_translate(swaddr_t addr , size_t len , uint8_t sreg)
 	{
 		return addr;
 	}
-    return addr;
+	Assert(sreg < 4,"out of bound \n");
+   	Assert(addr+len < cpu.sr[sreg].seg_limit, "segment out limit");
+	return cpu.sr[sreg].seg_base + addr;	
 }
