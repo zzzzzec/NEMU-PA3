@@ -232,6 +232,7 @@ lnaddr_t ser_translate(swaddr_t addr , size_t len , uint8_t sreg)
 {
 	if(cpu.cr0.protect_enable == 0)
 	{
+		printf("real mode \n");
 		return addr;
 	}
 	Assert(sreg < 4,"out of bound \n");
