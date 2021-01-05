@@ -2,9 +2,8 @@
 #$(call make_command, $(CC), $(nemu_LDFLAGS), ld $@, $^)
 define make_command
 @echo + $(3)
-#link library
 @mkdir -p $(@D)
-$(1) -o $@ $(4) $(2) 
+@$(1) -o $@ $(4) $(2) 
 endef
 
 # prototype: make_common_rules(target, cflags_extra)

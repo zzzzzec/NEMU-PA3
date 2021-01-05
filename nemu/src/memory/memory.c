@@ -1,4 +1,5 @@
 #include "common.h"
+#include "../../include/cpu/reg.h"
 //define some attributes
  #define HW_MEM_SIZE (1 << 27) /*2^27*/
 #define BLOCK_SIZE 64 //8byte
@@ -214,6 +215,7 @@ uint32_t swaddr_read(swaddr_t addr, size_t len)
 	/*if len != 1 2 4 ,assert)*/
 	assert(len == 1 || len == 2 || len == 4);
 #endif
+    //lnaddr_t lnaddr = ser_translate(addr , len ,sreg);
 	return lnaddr_read(addr, len);
 }
 
@@ -223,4 +225,13 @@ void swaddr_write(swaddr_t addr, size_t len, uint32_t data)
 	assert(len == 1 || len == 2 || len == 4);
 #endif
 	lnaddr_write(addr, len, data);
+}
+
+lnaddr_t ser_translate(swaddr_t addr , size_t len , uint8_t sreg)
+{
+	if(cpu.cr0.protect_enable == 0)
+	{
+		return addr;
+	}
+    return addr;
 }
