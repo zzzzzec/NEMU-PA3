@@ -98,6 +98,7 @@ static int cmd_x(char *args)
 		addr = expr(arg + strlen(arg) + 1, &success);
 		if (success)
 		{
+			cur_seg = R_DS;
 			for (i = 0; i < n; i++)
 			{
 				if (i % 4 == 0)

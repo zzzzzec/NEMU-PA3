@@ -187,6 +187,7 @@ typedef struct {
 
 uint8_t cur_seg;
 SEG_descriptor *seg_des;
+void sreg_load();
 extern CPU_state cpu;
 
 static inline int check_reg_index(int index)

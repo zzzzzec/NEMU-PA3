@@ -14,16 +14,16 @@ make_instr_helper(rm2r)
 
 make_helper(concat(mov_a2moffs_, SUFFIX)) {
 	swaddr_t addr = instr_fetch(eip + 1, 4);
+	cur_seg = R_DS;
 	MEM_W(addr, REG(R_EAX));
-
 	print_asm("mov" str(SUFFIX) " %%%s,0x%x", REG_NAME(R_EAX), addr);
 	return 5;
 }
 
 make_helper(concat(mov_moffs2a_, SUFFIX)) {
 	swaddr_t addr = instr_fetch(eip + 1, 4);
+	cur_seg = R_DS;
 	REG(R_EAX) = MEM_R(addr);
-
 	print_asm("mov" str(SUFFIX) " 0x%x,%%%s", addr, REG_NAME(R_EAX));
 	return 5;
 }
@@ -64,4 +64,35 @@ make_helper(mov_r2cr){
 }
 
 #endif
+#if DATA_BYTE == 2
+make_helper(mov_seg){
+	uint8_t opcode = instr_fetch(eip + 1, 1);
+	switch(opcode) {
+		case 0xd8:
+			cpu.DS.selector = reg_w(R_EAX);
+			cur_seg = R_DS;
+			sreg_load();
+			print_asm("mov %%%s, ds", REG_NAME(R_EAX));
+			break;
+		case 0xc0:
+			cpu.ES.selector = reg_w(R_EAX);
+			cur_seg = R_ES;
+			sreg_load();
+			print_asm("mov %%%s, es", REG_NAME(R_EAX));
+			break;
+		break;
+		case 0xd0:
+			cpu.SS.selector = reg_w(R_EAX);
+			cur_seg = R_SS;
+			sreg_load();
+			print_asm("mov %%%s, ss", REG_NAME(R_EAX));
+			break;
+		break;
+		default:
+		break;
+	}
+	return 2;
+}
+#endif 
+
 #include "cpu/exec/template-end.h"
