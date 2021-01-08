@@ -15,5 +15,27 @@ make_helper(jmp_rm_l) {
 	print_asm(str(instr) " *%s", op_src->str);
 	return len + 1;
 }
+
+make_helper(ljmp) {
+	extern SEG_descriptor *seg_des;
+	SEG_descriptor seg;
+	seg_des = &seg;
+	uint32_t op1 = instr_fetch(eip+1, 4)-7;
+	uint16_t op2 = instr_fetch(eip +5, 2);
+	cpu.eip = op1;
+	cpu.CS.selector = op2;
+	Assert(((cpu.CS.selector>>3)<<3) <= cpu.gdtr.limit, "segment out limit %d, %d", ((cpu.CS.selector>>3)<<3), cpu.gdtr.limit);
+	seg_des->first_part = instr_fetch(cpu.gdtr.base + ((cpu.CS.selector>>3)<<3), 4);
+	seg_des->second_part = instr_fetch(cpu.gdtr.base + ((cpu.CS.selector>>3)<<3)+4, 4);
+	Assert(seg_des->p == 1, "segment error");
+	cpu.CS.seg_base1 = seg_des->seg_base1;
+	cpu.CS.seg_base2 = seg_des->seg_base2;
+	cpu.CS.seg_base3 = seg_des->seg_base3;
+	cpu.CS.seg_limit1 = seg_des->seg_limit1;
+	cpu.CS.seg_limit2 = seg_des->seg_limit2;
+	cpu.CS.seg_limit3 = 0xfff;
+	print_asm("ljmp %x,%x", op2, op1+7);
+	return 7;
+}
 #endif
 #include "cpu/exec/template-end.h"
