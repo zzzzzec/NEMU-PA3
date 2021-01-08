@@ -184,6 +184,23 @@ typedef struct {
 		uint32_t second_part;
 	};
 }SEG_descriptor;
+typedef struct {
+	union {
+		struct {
+			uint32_t p 	:1;
+			uint32_t rw	:1;
+			uint32_t us	:1;
+			uint32_t 	:2;
+			uint32_t a	:1;
+			uint32_t d 	:1;
+			uint32_t 	:2;
+			uint32_t avail	:3;
+			uint32_t addr 	:20;
+		};
+		uint32_t page_val;
+	};
+}PAGE_descriptor;
+
 
 uint8_t cur_seg;
 SEG_descriptor *seg_des;
