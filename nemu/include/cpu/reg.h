@@ -113,30 +113,29 @@ typedef struct
 	};
 
 	swaddr_t eip;
-
-	union
-	{
-		struct
-		{
-			uint32_t CF : 1;
-			uint32_t pad0 : 1;
-			uint32_t PF : 1;
-			uint32_t pad1 : 1;
-			uint32_t AF : 1;
-			uint32_t pad2 : 1;
-			uint32_t ZF : 1;
-			uint32_t SF : 1;
-			uint32_t TF : 1;
-			uint32_t IF : 1;
-			uint32_t DF : 1;
-			uint32_t OF : 1;
-			uint32_t IOPL : 2;
-			uint32_t NT : 1;
-			uint32_t pad3 : 1;
-			uint16_t pad4;
-		};
-		uint32_t val;
-	} eflags;
+			union{
+				struct{
+					uint32_t CF:	1;
+					uint32_t :		1;
+					uint32_t PF:	1;
+					uint32_t :		1;
+					uint32_t AF:	1;
+					uint32_t :		1;
+					uint32_t ZF:	1;
+					uint32_t SF:	1;
+					uint32_t TF:	1;
+					uint32_t IF:	1;
+					uint32_t DF:	1;
+					uint32_t OF:	1;
+					uint32_t IOPL:	2;
+					uint32_t NT:	1;
+					uint32_t :		1;
+					uint32_t RF:	1;
+					uint32_t VM:	1;
+					uint32_t :		14;
+				};
+				uint32_t EFLAGS;
+			};
 
 	struct GDTR
 	{
@@ -153,7 +152,7 @@ typedef struct
 			struct SEG_REG SS;
 			struct SEG_REG DS;
 		};
-		struct SEG_REG sr[4];
+		struct SEG_REG sreg[4];
 	};
 
 	CR0 cr0;
@@ -202,8 +201,8 @@ typedef struct {
 }PAGE_descriptor;
 
 
-uint8_t cur_seg;
-SEG_descriptor *seg_des;
+uint8_t current_sreg;
+SEG_descriptor *sreg_desc;
 void sreg_load();
 extern CPU_state cpu;
 

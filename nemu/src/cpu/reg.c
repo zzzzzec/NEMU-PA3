@@ -87,18 +87,18 @@ uint32_t get_reg_val(const char *s, bool *success) {
 
 void sreg_load() 
 {
-	uint16_t sreg = cur_seg;
+	uint16_t sreg = current_sreg;
     	Assert(cpu.cr0.protect_enable, "Not in protection mode");
-    	uint16_t index = cpu.sr[sreg].selector >> 3;
+    	uint16_t index = cpu.sreg[sreg].selector >> 3;
     	Assert(index * 8 < cpu.gdtr.limit, "segment selector out of limit");
-    	seg_des->first_part = lnaddr_read(cpu.gdtr.base + index * 8, 4);
-  	seg_des->second_part = lnaddr_read(cpu.gdtr.base + index * 8 + 4, 4);
-	Assert(seg_des->p == 1, "segment error");
-	cpu.sr[sreg].seg_base1 = seg_des->seg_base1;
-	cpu.sr[sreg].seg_base2 = seg_des->seg_base2;
-	cpu.sr[sreg].seg_base3 = seg_des->seg_base3;
-	cpu.sr[sreg].seg_limit1 = seg_des->seg_limit1;
-	cpu.sr[sreg].seg_limit2 = seg_des->seg_limit2;
-	cpu.sr[sreg].seg_limit3 = 0xfff;
-    	if (seg_des->g) cpu.sr[sreg].seg_limit <<= 12;
+    	sreg_desc->first_part = lnaddr_read(cpu.gdtr.base + index * 8, 4);
+  	sreg_desc->second_part = lnaddr_read(cpu.gdtr.base + index * 8 + 4, 4);
+	Assert(sreg_desc->p == 1, "segment error");
+	cpu.sreg[sreg].seg_base1 = sreg_desc->seg_base1;
+	cpu.sreg[sreg].seg_base2 = sreg_desc->seg_base2;
+	cpu.sreg[sreg].seg_base3 = sreg_desc->seg_base3;
+	cpu.sreg[sreg].seg_limit1 = sreg_desc->seg_limit1;
+	cpu.sreg[sreg].seg_limit2 = sreg_desc->seg_limit2;
+	cpu.sreg[sreg].seg_limit3 = 0xfff;
+    	if (sreg_desc->g) cpu.sreg[sreg].seg_limit <<= 12;
 }

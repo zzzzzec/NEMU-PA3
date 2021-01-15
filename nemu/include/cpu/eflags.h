@@ -7,49 +7,49 @@ void update_eflags_pf_zf_sf(uint32_t);
 
 
 static inline bool check_cc_b() {
-	return cpu.eflags.CF;
+	return cpu.CF;
 }
 
 
 static inline bool check_cc_e() {
-	return cpu.eflags.ZF;
+	return cpu.ZF;
 }
 
 static inline bool check_cc_ne() {
-	return !cpu.eflags.ZF;
+	return !cpu.ZF;
 }
 
 static inline bool check_cc_be() {
-	return cpu.eflags.CF | cpu.eflags.ZF;
+	return cpu.CF | cpu.ZF;
 }
 
 static inline bool check_cc_a() {
-	return !(cpu.eflags.CF | cpu.eflags.ZF);
+	return !(cpu.CF | cpu.ZF);
 }
 
 static inline bool check_cc_s() {
-	return cpu.eflags.SF;
+	return cpu.SF;
 }
 
 static inline bool check_cc_ns() {
-	return !cpu.eflags.SF;
+	return !cpu.SF;
 }
 
 
 static inline bool check_cc_l() {
-	return cpu.eflags.SF ^ cpu.eflags.OF;
+	return cpu.SF ^ cpu.OF;
 }
 
 static inline bool check_cc_ge() {
-	return !(cpu.eflags.SF ^ cpu.eflags.OF);
+	return !(cpu.SF ^ cpu.OF);
 }
 
 static inline bool check_cc_le() {
-	return (cpu.eflags.SF ^ cpu.eflags.OF) | cpu.eflags.ZF;
+	return (cpu.SF ^ cpu.OF) | cpu.ZF;
 }
 
 static inline bool check_cc_g() {
-	return !((cpu.eflags.SF ^ cpu.eflags.OF) | cpu.eflags.ZF);
+	return !((cpu.SF ^ cpu.OF) | cpu.ZF);
 }
 
 #endif

@@ -2,7 +2,7 @@
 
 
 make_helper(std){
-	cpu.eflags.DF = 1;
+	cpu.DF = 1;
 	print_asm("std");
 	return 1;
 }
