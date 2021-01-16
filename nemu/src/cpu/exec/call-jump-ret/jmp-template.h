@@ -4,7 +4,6 @@
 
 static void do_execute () {
 	DATA_TYPE_S imm = op_src -> val;
-    printf("%x \n",imm);
     if (op_src -> type == OP_TYPE_IMM){
         cpu.eip += imm;
     }else {
