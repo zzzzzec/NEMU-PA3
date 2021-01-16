@@ -92,12 +92,12 @@ void restart() {
     /*init seg*/
 	cpu.CS.seg_base = 0;
 	cpu.CS.seg_limit = 0xffffffff;
-	cpu.DS.seg_base = 0;
+	/*cpu.DS.seg_base = 0;
 	cpu.DS.seg_limit = 0xffffffff;
 	cpu.ES.seg_base = 0;
 	cpu.ES.seg_limit = 0xffffffff;
 	cpu.SS.seg_base = 0;
-	cpu.SS.seg_limit = 0xffffffff;
+	cpu.SS.seg_limit = 0xffffffff;*/
 
 	/* Initialize DRAM. */
 	init_ddr3();
