@@ -265,6 +265,7 @@ hwaddr_t page_translate(lnaddr_t addr) {
 	hwaddr_t hwaddr;
 	if (cpu.cr0.paging!=1 && cpu.cr0.protect_enable!=1){
 		printf("paging disable \n");
+		printf("%d %d \n",cpu.cr0.paging,cpu.cr0.protect_enable);
 		return addr;
 	}
 /*	if ((hwaddr = TLB_read(addr)) != -1){
