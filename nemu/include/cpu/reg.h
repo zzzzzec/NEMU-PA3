@@ -203,7 +203,7 @@ typedef struct {
 
 uint8_t current_sreg;
 SEG_descriptor *sreg_desc;
-void sreg_load();
+void sreg_load(uint8_t sreg);
 extern CPU_state cpu;
 
 static inline int check_reg_index(int index)

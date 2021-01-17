@@ -100,10 +100,8 @@ uint32_t get_reg_val(const char *s, bool *success)
 	return 0;
 }
 
-void sreg_load()
+void sreg_load(uint8_t sreg)
 {
-	uint16_t sreg = current_sreg;
-	Assert(cpu.cr0.protect_enable, "Not in protection mode");
 	uint16_t index = cpu.sreg[sreg].selector >> 3;
 	Assert(index * 8 < cpu.gdtr.limit, "segment selector out of limit");
 	sreg_desc->first_part = lnaddr_read(cpu.gdtr.base + index * 8, 4);
