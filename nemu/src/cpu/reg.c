@@ -115,5 +115,4 @@ void sreg_load(uint8_t sreg)
 	cpu.sreg[sreg].seg_limit3 = 0xfff;
 	if (sreg_desc->g)
 		cpu.sreg[sreg].seg_limit <<= 12;
-	printf("0x%08x  0x%08x  \n",cpu.sreg[sreg].seg_base,cpu.sreg[sreg].seg_limit);
 }
