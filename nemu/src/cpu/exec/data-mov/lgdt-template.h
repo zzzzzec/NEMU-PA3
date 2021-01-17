@@ -3,7 +3,7 @@
 #define instr lgdt
 
 static void do_execute(){
-    printf("%d\n",(int)op_src->addr);
+    //printf("%d\n",(int)op_src->addr);
     if(op_src->size == 2)
     {
         cpu.gdtr.limit = swaddr_read(op_src->addr , 2);
