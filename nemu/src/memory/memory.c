@@ -263,7 +263,7 @@ hwaddr_t page_translate(lnaddr_t addr) {
 	PAGE_descriptor dir;
 	PAGE_descriptor page;
 	hwaddr_t hwaddr;
-	if (!cpu.cr0.paging || !cpu.cr0.protect_enable){
+	if (cpu.cr0.paging!=1 && cpu.cr0.protect_enable!=1){
 		printf("paging disable \n");
 		return addr;
 	}
