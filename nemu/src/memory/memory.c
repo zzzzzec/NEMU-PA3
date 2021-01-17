@@ -252,9 +252,7 @@ lnaddr_t ser_translate(swaddr_t addr, size_t len, uint8_t sreg)
 		return addr;
 	}
 	Assert(sreg < 4, "out of bound \n");
-	if(addr + len >= cpu.sreg[sreg].seg_limit){
 	printf(" %08x  %08x %08x  \n",(int )addr,(int)len,cpu.sreg[sreg].seg_limit);
-	}
 	Assert(addr + len < cpu.sreg[sreg].seg_limit, "segment out limit");
 	return cpu.sreg[sreg].seg_base + addr;
 }
