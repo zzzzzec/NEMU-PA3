@@ -3,12 +3,13 @@
 #define instr lgdt
 
 static void do_execute(){
+     printf("%d \n",(int)op_src->size);
     if(op_src->size == 2)
     {
         cpu.gdtr.limit = swaddr_read(op_src->addr , 2);
         cpu.gdtr.base = swaddr_read(op_src->addr + 2, 3);
     }
-    else
+    else if(op_src->size == 4)
     {
         cpu.gdtr.limit = swaddr_read(op_src->addr , 2);
         cpu.gdtr.base = swaddr_read(op_src->addr + 2, 4);
