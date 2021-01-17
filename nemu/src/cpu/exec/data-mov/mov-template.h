@@ -77,7 +77,6 @@ make_helper(mov_sreg2rm){
 	uint8_t opcode = instr_fetch(eip + 1, 1);
 	if (opcode == 0xd8)
 	{
-		printf("DS \n");
 		cpu.DS.selector = reg_w(R_EAX);
 		sreg_load(R_DS);
 		print_asm("mov %%%s, ds", REG_NAME(R_EAX));
