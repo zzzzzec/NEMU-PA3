@@ -20,7 +20,7 @@ void init_cond();
  * The assembly code in start.S will finally jump here.
  */
 void init() {
-	panic("init \n");
+//	panic("init \n");
 #ifdef IA32_PAGE
 	/* We must set up kernel virtual memory first because our kernel thinks it 
 	 * is located at 0xc0100000, which is set by the linking options in Makefile.
@@ -82,7 +82,8 @@ void init_cond() {
 
 	/* Load the program. */
 	uint32_t eip = loader();
-	
+	video_mapping_write_test();
+	video_mapping_clear();
 #if defined(IA32_PAGE) && defined(HAS_DEVICE)
 	/* Read data in the video memory to check whether 
 	 * the test data is written sucessfully.
@@ -92,7 +93,7 @@ void init_cond() {
 	/* Clear the test data we just written in the video memory. */
 	video_mapping_clear();
 #endif
-
+  
 #ifdef IA32_PAGE
 	/* Set the %esp for user program, which is one of the
 	 * convention of the "advanced" runtime environment. */
