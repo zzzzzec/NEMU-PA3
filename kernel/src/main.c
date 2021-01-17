@@ -20,12 +20,10 @@ void init_cond();
  * The assembly code in start.S will finally jump here.
  */
 void init() {
-//	panic("init \n");
 #ifdef IA32_PAGE
 	/* We must set up kernel virtual memory first because our kernel thinks it 
 	 * is located at 0xc0100000, which is set by the linking options in Makefile.
 	 * Before setting up correct paging, no global variable can be used. */
-	panic("page \n");
 	init_page();
 
 	/* After paging is enabled, transform %esp to virtual address. */
