@@ -17,6 +17,7 @@ void resetTLB() {
     for ( i = 0; i < TLB_SIZE; i++)
     {
         tlb[i].valid = false;
+        
     }
     
 }
