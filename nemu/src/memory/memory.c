@@ -272,6 +272,6 @@ hwaddr_t page_translate(lnaddr_t addr) {
 	page.page_val = hwaddr_read((dir.addr<<12)+(PAGE(addr)<<2), 4);
 	Assert(page.p, "page do not exist at %x", cpu.eip);
 	hwaddr = (page.addr<<12)+OFFSET(addr);
-	TLB_write(addr, hwaddr);
+	/*TLB_write(addr, hwaddr);*/
 	return hwaddr;
 }
