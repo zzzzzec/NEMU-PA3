@@ -11,9 +11,9 @@ static void do_execute(){
     }
     else if(op_src->size == 4)
     {
+
         cpu.gdtr.limit = swaddr_read(op_src->addr , 2);
         cpu.gdtr.base = swaddr_read(op_src->addr + 2, 4);
-        printf("%x  %x\n",(int )cpu.gdtr.limit , (int)cpu.gdtr.base);
     }
     print_asm_template1();
 }
