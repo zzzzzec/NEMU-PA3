@@ -86,10 +86,9 @@ void restart() {
 
 	/* Set the initial instruction pointer. */
 	cpu.eip = ENTRY_START;
-    cpu.EFLAGS = 0x2;
-	cpu.cr0.protect_enable= 0;
-	cpu.cr0.paging = 0;
-    /*init seg*/
+    cpu.EFLAGS = 2;
+    cpu.cr0.val = 0;
+	cpu.cr3.val = 0;
 	cpu.CS.seg_base = 0;
 	cpu.CS.seg_limit = 0xffffffff;
 	/*cpu.DS.seg_base = 0;
