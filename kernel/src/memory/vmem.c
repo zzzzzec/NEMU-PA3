@@ -15,7 +15,7 @@ void create_video_mapping() {
 	 * some page tables to create this mapping.
 	 */
 	//panic("please implement me");
-		PDE *pde = (PDE *)va_to_pa(get_updir());
+	PDE *pde = (PDE *)va_to_pa(get_updir());
 	
 	pde[0].val = make_pde(va_to_pa(vm_pt));
 	int tot = SCR_SIZE/PAGE_SIZE;
@@ -24,6 +24,7 @@ void create_video_mapping() {
 	for (i = VMEM_ADDR/PAGE_SIZE;i < VMEM_ADDR/PAGE_SIZE + tot;i ++){
 	vm_pt[i].val = make_pte(i<<12);
 	}
+	
 }
 
 void video_mapping_write_test() {

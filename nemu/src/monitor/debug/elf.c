@@ -1,7 +1,7 @@
 #include "common.h"
 #include <stdlib.h>
 #include <elf.h>
-
+#define max_str_len 32
 char *exec_file = NULL;
 
 static char *strtab = NULL;
@@ -80,34 +80,45 @@ void load_elf_tables(int argc, char *argv[]) {
 
 	fclose(fp);
 }
-
-uint32_t look_up_symtab(char *sym, bool *success) {
+uint32_t get_addr_from_mark(char *mark) {
 	int i;
-	for(i = 0; i < nr_symtab_entry; i ++) {
-		uint8_t type = ELF32_ST_TYPE(symtab[i].st_info);
-		if((type == STT_FUNC || type == STT_OBJECT) && 
-				strcmp(strtab + symtab[i].st_name, sym) == 0) {
-			*success = true;
-			return symtab[i].st_value;
+	uint32_t num = 0;
+	for (i = 0; i < nr_symtab_entry; i++)
+	{
+		if ((symtab[i].st_info&0xf) == STT_OBJECT)
+		{
+			char tmp[max_str_len];
+			// int tmplen = symtab[i+1].st_name - symtab[i].st_name - 1;
+			strcpy(tmp, strtab+symtab[i].st_name);
+			
+			if (strcmp(tmp, mark) == 0)
+			{
+				num = symtab[i].st_value;
+				return num;
+			}	
 		}
 	}
-
-	*success = false;
-	return 0;
+	printf("no matching mark!\n");
+	return num;
 }
 
-const char* find_fun_name(uint32_t eip) {
-	static const char not_found[] = "???";
-
+void get_func_from_addr(char *tmp, swaddr_t addr) {
 	int i;
-	for(i = 0; i < nr_symtab_entry; i ++) {
-		if(ELF32_ST_TYPE(symtab[i].st_info) == STT_FUNC && 
-				eip >= symtab[i].st_value && eip < symtab[i].st_value + symtab[i].st_size) {
-			return strtab + symtab[i].st_name;
+	for (i = 0; i < nr_symtab_entry; i++)
+	{
+		if (symtab[i].st_value <= addr
+		&& symtab[i].st_value + symtab[i].st_size >= addr
+		&& (symtab[i].st_info&0xf) == STT_FUNC)
+		{
+			// tmplen = symtab[i+1].st_name - symtab[i].st_name - 1;
+			strcpy(tmp, strtab+symtab[i].st_name);
+			return;
 		}
+		
 	}
-
-	return not_found;
+	printf("No matching function!\n");
+	// tmp[0] = '/0';
+	return;
 }
 
 

@@ -4,7 +4,7 @@
 #define concat_temp(x, y) x ## y
 #define concat(x, y) concat_temp(x, y)
 
-#ifndef __ASSEMBLER__ 
+#ifndef __ASSEMBLER__
 
 #define HIT_GOOD_TRAP \
 	asm volatile(".byte 0xd6" : : "a" (0))

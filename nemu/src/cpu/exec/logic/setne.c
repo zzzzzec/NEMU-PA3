@@ -4,14 +4,3 @@
 #include "setne-template.h"
 #undef DATA_BYTE
 
-// #define DATA_BYTE 2
-// #include "xor-template.h"
-// #undef DATA_BYTE
-
-// #define DATA_BYTE 4
-// #include "xor-template.h"
-// #undef DATA_BYTE
-
-/* for instruction encoding overloading */
-
-

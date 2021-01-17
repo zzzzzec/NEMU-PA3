@@ -3,22 +3,24 @@
 #define instr dec
 
 static void do_execute () {
-	DATA_TYPE ret = op_src->val - 1;
-	OPERAND_W(op_src, ret);
-
+	DATA_TYPE result = op_src->val - 1;
+	OPERAND_W(op_src,result);
+	concat(update_,SUFFIX)(result);
+	int len = (DATA_BYTE << 3) - 1;
+	cpu.CF = op_src->val < 1;
+	//cpu.SF=result >> len;
+    	int s1,s2;
+	s1=op_src->val>>len;
+	s2=0;
+    	cpu.OF=(s1 != s2 && s2 == cpu.SF) ;
+	//cpu.ZF=!result;
+	//OPERAND_W(op_src, result);
+	//result ^= result >>4;
+	//result ^= result >>2;
+	//result ^= result >>1;
+	//cpu.PF=!(result & 1);
 	/* TODO: Update EFLAGS. */
-	cpu.ZF = !ret;
-    cpu.SF = ret >> ((DATA_BYTE << 3) - 1);
-    cpu.CF = op_src -> val < 1;
-    int tmp1 = (op_src -> val) >> ((DATA_BYTE << 3) - 1);
-    int tmp2 = 0;
-    cpu.OF = (tmp1 != tmp2 && tmp2 == cpu.SF);
-    ret ^= ret >> 4;
-    ret ^= ret >> 2;
-    ret ^= ret >> 1;
-    ret &= 1;
-    cpu.PF = !ret;
-
+	//panic("please implement me");
 	print_asm_template1();
 }
 

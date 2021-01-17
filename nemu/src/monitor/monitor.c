@@ -1,5 +1,6 @@
 #include "nemu.h"
-
+#include "memory/cache.h"
+#include "memory/tlb.h"
 #define ENTRY_START 0x100000
 
 extern uint8_t entry [];
@@ -86,19 +87,19 @@ void restart() {
 
 	/* Set the initial instruction pointer. */
 	cpu.eip = ENTRY_START;
-    cpu.EFLAGS = 2;
-    cpu.cr0.val = 0;
-	cpu.cr3.val = 0;
-	cpu.CS.seg_base = 0;
-	cpu.CS.seg_limit = 0xffffffff;
-	/*cpu.DS.seg_base = 0;
-	cpu.DS.seg_limit = 0xffffffff;
-	cpu.ES.seg_base = 0;
-	cpu.ES.seg_limit = 0xffffffff;
-	cpu.SS.seg_base = 0;
-	cpu.SS.seg_limit = 0xffffffff;*/
+	cpu.eflags = 2;
+
+	cpu.cr0.val = cpu.cr3.val = 0;
+	
+	cpu.cs.cache.base = 0;
+	cpu.cs.cache.limit = 0xffffffff;
 
 	/* Initialize DRAM. */
 	init_ddr3();
-	init_cache();
+
+	// initialize cache
+	resetCache();
+
+	// initialize TLB
+	resetTLB();
 }

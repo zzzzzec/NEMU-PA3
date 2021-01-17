@@ -9,20 +9,17 @@ static void do_execute () {
 	uint8_t count = src & 0x1f;
 	dest <<= count;
 	OPERAND_W(op_dest, dest);
-
-	DATA_TYPE ret = dest;
-	cpu.CF = 0;
-	cpu.OF = 0;
-	cpu.ZF = !ret;
-    cpu.SF = ret >> ((DATA_BYTE << 3) - 1);
-	ret ^= ret >> 4;
-    ret ^= ret >> 2;
-    ret ^= ret >> 1;
-    ret &= 1;
-    cpu.PF = !ret;
-	/* There is no need to update EFLAGS, since no other instructions 
-	 * in PA will test the flags updated by this instruction.
-	 */
+	int len = (DATA_BYTE << 3) - 1;
+	cpu.CF=0;
+	cpu.OF=0;
+	cpu.SF=dest >> len;
+    	cpu.ZF=!dest;
+		dest ^= dest >>4;
+	dest ^= dest >>2;
+	dest ^= dest >>1;
+	cpu.PF=!(dest & 1);
+	/* TODO: Update EFLAGS. */
+	//panic("please implement me");
 
 	print_asm_template2();
 }

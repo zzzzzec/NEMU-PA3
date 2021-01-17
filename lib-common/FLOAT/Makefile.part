@@ -1,3 +1,5 @@
+
+
 # This file will be included by the Makefile under the project directory.
 
 FLOAT_O := $(FLOAT:.a=.o)
@@ -10,11 +12,12 @@ $(FLOAT): $(FLOAT_A_OBJ)
 
 # TODO: complete the following rules
 
-$(FLOAT_O): lib-common/FLOAT/FLOAT.c
-	mkdir -p $(@D)
-	gcc -m32 -fno-builtin -I$(LIB_COMMON_DIR) -O2 -c -o $@ $<
+FLOAT_CFLAGS := -O2 -m32 -fno-builtin -fno-stack-protector -D_FORTIFY_SOURCE=0 -march=i386 -mtune=i386
 
-$(FLOAT_VFPRINTF_O): lib-common/FLOAT/FLOAT_vfprintf.c
-	mkdir -p $(@D)
-	gcc -m32 -fno-builtin -I$(LIB_COMMON_DIR) -O2 -c -o $@ $<
+$(FLOAT_O):
+	mkdir -p obj/lib-common/FLOAT
+	$(CC) $(FLOAT_CFLAGS) -c lib-common/FLOAT/FLOAT.c -o $(FLOAT_O) -Ilib-common
 
+$(FLOAT_VFPRINTF_O):
+	mkdir -p obj/lib-common/FLOAT
+	$(CC) $(FLOAT_CFLAGS) -c lib-common/FLOAT/FLOAT_vfprintf.c -o $(FLOAT_VFPRINTF_O) -Ilib-common

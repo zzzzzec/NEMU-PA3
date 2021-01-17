@@ -4,9 +4,7 @@ $(eval $(call make_common_rules,nemu,$(nemu_CFLAGS_EXTRA)))
 nemu_LDFLAGS := -lreadline
 
 $(nemu_BIN): $(nemu_OBJS)
-	echo "compile"
 	$(call make_command, $(CC), $(nemu_LDFLAGS), ld $@, $^)
-	#link
 	$(call git_commit, "compile NEMU")
 
 

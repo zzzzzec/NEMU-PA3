@@ -8,7 +8,7 @@
  * This is useful when you use the `si' command.
  * You can modify this value as you want.
  */
-#define MAX_INSTR_TO_PRINT 100
+#define MAX_INSTR_TO_PRINT 1000
 
 int nemu_state = STOP;
 
@@ -93,6 +93,6 @@ void cpu_exec(volatile uint32_t n) {
 
 		if(nemu_state != RUNNING) { return; }
 	}
-   
+
 	if(nemu_state == RUNNING) { nemu_state = STOP; }
 }

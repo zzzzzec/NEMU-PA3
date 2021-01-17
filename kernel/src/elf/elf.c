@@ -2,6 +2,7 @@
 #include "memory.h"
 #include <string.h>
 #include <elf.h>
+#include <stdio.h>
 
 #define ELF_OFFSET_IN_DISK 0
 
@@ -54,6 +55,7 @@ uint32_t loader() {
 			memset((void *)(ph->p_vaddr + ph->p_filesz), 0, ph->p_memsz - ph->p_filesz);
 			
 			
+
 
 #ifdef IA32_PAGE
 			/* Record the program break for future use. */
