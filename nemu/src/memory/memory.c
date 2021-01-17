@@ -217,7 +217,6 @@ uint32_t lnaddr_read(lnaddr_t addr, size_t len)
 #ifdef DEBUG
 	assert(len == 1 || len == 2 || len == 4);
 #endif
-
     hwaddr_t hwaddr = page_translate(addr);
 	return hwaddr_read(hwaddr, len);
 }
@@ -255,7 +254,7 @@ lnaddr_t ser_translate(swaddr_t addr, size_t len, uint8_t sreg)
 	Assert(sreg < 4, "out of bound \n");
 	if(addr + len >= cpu.sreg[sreg].seg_limit){
 	int temp = addr + (int )len;
-	printf(" %d  %d  \n",temp,cpu.sreg[sreg].seg_limit);
+	printf(" %08x  %08x  \n",temp,cpu.sreg[sreg].seg_limit);
 	}
 	Assert(addr + len < cpu.sreg[sreg].seg_limit, "segment out limit");
 	return cpu.sreg[sreg].seg_base + addr;
