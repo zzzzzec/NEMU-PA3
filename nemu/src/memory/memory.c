@@ -35,7 +35,7 @@ void hwaddr_write(hwaddr_t addr, size_t len, uint32_t data) {
 }
 
 hwaddr_t page_translate(lnaddr_t addr, size_t len) {
-	printf("%d %d \n",cpu.cr0.paging,cpu.cr0.protect_enable);
+//	printf("%d %d \n",cpu.cr0.paging,cpu.cr0.protect_enable);
 	if(cpu.cr0.protect_enable && cpu.cr0.paging) {
 		hwaddr_t tmpaddr;
 		if ((tmpaddr = readTLB(addr & 0xfffff000)) != -1)
