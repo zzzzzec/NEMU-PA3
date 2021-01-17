@@ -264,6 +264,7 @@ hwaddr_t page_translate(lnaddr_t addr) {
 	PAGE_descriptor page;
 	hwaddr_t hwaddr;
 	if (!cpu.cr0.paging || !cpu.cr0.protect_enable){
+		printf("paging disable \n");
 		return addr;
 	}
 /*	if ((hwaddr = TLB_read(addr)) != -1){
