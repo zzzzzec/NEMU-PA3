@@ -55,11 +55,11 @@ void display_reg()
 
 	printf("%s\t\t0x%08x\t\t%d\n", "eip", cpu.eip, cpu.eip);
 	printf("%s\t\t0x%08x\t\n", "cr0", cpu.cr0.val);
-	printf("%s\t\t0x%04x\t0x%02x\n", "gdtr", (int)cpu.gdtr.base, (int)cpu.gdtr.limit);
-	printf("%s\t\t0x%02x\t\n", "DS", cpu.DS.selector);
-	printf("%s\t\t0x%02x\t\n", "ES", cpu.ES.selector);
-	printf("%s\t\t0x%02x\t\n", "SS", cpu.SS.selector);
-	printf("%s\t\t0x%02x\t\n", "CS", cpu.CS.selector);
+	printf("%s\t\t0x%08x\t %s0x%08x\n", "gdtr.base", (int)cpu.gdtr.base,"gdtr.limit", (int)cpu.gdtr.limit);
+	printf("%s\t\t0x%08x\t\n", "DS", cpu.DS.selector);
+	printf("%s\t\t0x%08x\t\n", "ES", cpu.ES.selector);
+	printf("%s\t\t0x%08x\t\n", "SS", cpu.SS.selector);
+	printf("%s\t\t0x%08x\t\n", "CS", cpu.CS.selector);
 }
 
 /* TODO: Get the value of register */
