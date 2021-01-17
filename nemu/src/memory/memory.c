@@ -264,9 +264,9 @@ hwaddr_t page_translate(lnaddr_t addr) {
 	if (!cpu.cr0.paging || !cpu.cr0.protect_enable){
 		return addr;
 	}
-/*	if ((hwaddr = TLB_read(addr)) != -1){
+	if ((hwaddr = TLB_read(addr)) != -1){
 		return hwaddr + OFFSET(addr);
-	}*/
+	}
 	dir.page_val = hwaddr_read((cpu.cr3.page_directory_base<<12)+(DIR(addr)<<2), 4);
 	Assert(dir.p, "pagevalue = %x eip = %x", dir.page_val,cpu.eip);
 	page.page_val = hwaddr_read((dir.addr<<12)+(PAGE(addr)<<2), 4);
