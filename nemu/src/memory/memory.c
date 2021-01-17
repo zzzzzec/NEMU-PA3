@@ -273,5 +273,6 @@ hwaddr_t page_translate(lnaddr_t addr) {
 	Assert(page.p, "page do not exist at %x", cpu.eip);
 	hwaddr = (page.addr<<12)+OFFSET(addr);
 	/*TLB_write(addr, hwaddr);*/
+	printf("%d \n",hwaddr);
 	return hwaddr;
 }
