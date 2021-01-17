@@ -55,7 +55,7 @@ void display_reg()
 
 	printf("%s\t\t0x%08x\t\t%d\n", "eip", cpu.eip, cpu.eip);
 	printf("%s\t\t0x%08x\t\n", "cr0", cpu.cr0.val);
-	printf("%s\t\t0x%08x\t %s0x%08x\n", "gdtr.base", (int)cpu.gdtr.base,"gdtr.limit", (int)cpu.gdtr.limit);
+	printf("%s\t0x%08x\t %s\t0x%08x\n", "gdtr.base", (int)cpu.gdtr.base,"gdtr.limit", (int)cpu.gdtr.limit);
 	printf("%s\t\t0x%08x\t\n", "DS", cpu.DS.selector);
 	printf("%s\t\t0x%08x\t\n", "ES", cpu.ES.selector);
 	printf("%s\t\t0x%08x\t\n", "SS", cpu.SS.selector);
