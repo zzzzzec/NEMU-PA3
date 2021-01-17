@@ -218,6 +218,7 @@ uint32_t lnaddr_read(lnaddr_t addr, size_t len)
 	assert(len == 1 || len == 2 || len == 4);
 #endif
     hwaddr_t hwaddr = page_translate(addr);
+	printf("here\n");
 	return hwaddr_read(hwaddr, len);
 }
 
